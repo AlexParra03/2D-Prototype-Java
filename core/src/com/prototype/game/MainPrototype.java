@@ -2,6 +2,7 @@ package com.prototype.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MainPrototype extends ApplicationAdapter {
 	SpriteBatch batch;
         TileMap map;
+        Player player;
 	
 	@Override
 	public void create () {
@@ -16,6 +18,8 @@ public class MainPrototype extends ApplicationAdapter {
                 
                 //Creating instance of map  
                 this.map = new TileMap( 10, 10 );
+                
+                this.player = new Player();
 	}
 
 	@Override
@@ -25,14 +29,41 @@ public class MainPrototype extends ApplicationAdapter {
                 
 		batch.begin();
                 map.render(batch);
+                player.render(batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		for(Texture tile : map.tileTextures){
-                    tile.dispose();
-                }
+		map.dispose();
+                player.dispose();
 	}
+        
+        void handleInput(){
+            
+            //Player movement
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+                player.movingLeft = true;
+                System.out.println("YESS");
+            }else{
+                player.movingLeft = false;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+                player.movingRight = true;
+            }else{
+                player.movingRight = false;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+                player.movingUp = true;
+            }else{
+                player.movingUp = false;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+                player.movingDown = true;
+            }else{
+                player.movingDown = false;
+            }
+            
+        }
 }
