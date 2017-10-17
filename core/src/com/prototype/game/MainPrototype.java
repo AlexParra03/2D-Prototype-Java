@@ -16,20 +16,19 @@ public class MainPrototype extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
                 
-                //Creating instance of map  
-                this.map = new TileMap( 10, 10 );
-                
-                this.player = new Player();
+        //Creating instance of map  
+        this.map = new TileMap(Gdx.graphics.getWidth()/32, Gdx.graphics.getHeight()/32);
+        this.player = new Player();
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
+		handleInput();
 		batch.begin();
-                map.render(batch);
-                player.render(batch);
+        map.render(batch);
+        player.render(batch);
 		batch.end();
 	}
 	
@@ -37,7 +36,7 @@ public class MainPrototype extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		map.dispose();
-                player.dispose();
+        player.dispose();
 	}
         
         void handleInput(){

@@ -32,8 +32,8 @@ public class TileMap implements RenderableObject {
         this.map[5][4] = 1;
         
         //Add 0th texture
-        tileTextures.add(  new Texture(  Gdx.files.local("tiles/stone.png") )   );
-        tileTextures.add(  new Texture( Gdx.files.local( "tiles/grass.png") )   );
+        tileTextures.add(  new Texture(  Gdx.files.internal("tiles/Rockpixel1.jpg") )   );
+        tileTextures.add(  new Texture( Gdx.files.internal( "tiles/grass.png") )   );
     }
     
     public void changeTile(int row, int column, int textureKey){

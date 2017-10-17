@@ -1,6 +1,7 @@
 
 package com.prototype.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import static com.prototype.game.TileMap.TILE_SIZE;
@@ -31,7 +32,7 @@ public class Player implements RenderableObject {
     double speed = 2;
     
     public Player(){
-        this.idle[0] = new Texture("tiles/grass.png");
+        this.idle[0] = new Texture(Gdx.files.internal("tiles/grass.png"));
         this.x = 10;
         this.y = 10;
         
@@ -77,7 +78,7 @@ public class Player implements RenderableObject {
             dy = (this.movingUp) ? (this.speed) : -(this.speed);
         // Horizontal Movement
         }else if(this.movingLeft || this.movingRight){ 
-            dx = (this.movingLeft) ? (this.speed) : (-this.speed);
+            dx = (this.movingRight) ? (this.speed) : -(this.speed);
         }
         
         this.x += dx;
