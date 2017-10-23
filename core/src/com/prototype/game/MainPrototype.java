@@ -14,29 +14,29 @@ public class MainPrototype extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+            batch = new SpriteBatch();
                 
-        //Creating instance of map  
-        this.map = new TileMap(Gdx.graphics.getWidth()/32, Gdx.graphics.getHeight()/32);
-        this.player = new Player();
+            //Creating instance of map  
+            this.map = new TileMap(Gdx.graphics.getWidth()/32, Gdx.graphics.getHeight()/32);
+            this.player = new Player();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		handleInput();
-		batch.begin();
-        map.render(batch);
-        player.render(batch);
-		batch.end();
+            Gdx.gl.glClearColor(1, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            handleInput();
+            batch.begin();
+            map.render(batch);
+            player.render(batch);
+            batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		map.dispose();
-        player.dispose();
+            batch.dispose();
+            map.dispose();
+            player.dispose();
 	}
         
         void handleInput(){
@@ -44,7 +44,6 @@ public class MainPrototype extends ApplicationAdapter {
             //Player movement
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
                 player.movingLeft = true;
-                System.out.println("YESS");
             }else{
                 player.movingLeft = false;
             }

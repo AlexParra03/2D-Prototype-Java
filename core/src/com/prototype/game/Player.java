@@ -71,8 +71,8 @@ public class Player implements RenderableObject {
         
         // Movement in several directions
         if( (this.movingUp || this.movingDown) && (this.movingLeft || this.movingRight) ){
-            dy = (this.movingUp) ? (0.5*this.speed) : -(0.5*this.speed);
-            dx = (this.movingRight) ? (0.5*this.speed) : -(0.5*this.speed);
+            dy = (this.movingUp) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
+            dx = (this.movingRight) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
         // Vertical Movement
         }else if(this.movingUp || this.movingDown){ 
             dy = (this.movingUp) ? (this.speed) : -(this.speed);
