@@ -15,43 +15,68 @@ public class Player implements RenderableObject {
     Texture[] down = new Texture[3];
     Texture[] left = new Texture[3];
     Texture[] right = new Texture[3];
-    Texture[] idle = new Texture[3];
     ArrayList<Texture[]> animations = new ArrayList<Texture[]>();
     
     //Inputs
-    boolean movingDown = false;
-    boolean movingUp = false;
-    boolean movingLeft = false;
-    boolean movingRight = false;
+    private boolean movingDown = false;
+    private boolean movingUp = false;
+    private boolean movingLeft = false;
+    private boolean movingRight = false;
+    
+    
+    // Used to pick the set of animations U: Up, D: Down, L: Left, R: Right
+    private char animationDirection = 'D';
+    private double animationTimer = 0;
+    private Texture currentFrame;
+    private final double ANIMATION_SPEED = 6.0;
     
     //Position
     public double x;
     public double y;
     
-    //Statis
+    //Statistics
     double speed = 2;
     
     public Player(){
-        this.idle[0] = new Texture(Gdx.files.internal("tiles/grass.png"));
-        this.x = 10;
-        this.y = 10;
+    	
+    	//Adding animation frames to each set
+        for(int i=0; i<3; i++){
+        	this.up[i] = new Texture(Gdx.files.internal("character/up" + i + ".jpg"));
+        }
+        for(int i=0; i<3; i++){
+        	this.down[i] = new Texture(Gdx.files.internal("character/down" + i + ".jpg"));
+        }
+        for(int i=0; i<3; i++){
+        	this.left[i] = new Texture(Gdx.files.internal("character/left" + i + ".jpg"));
+        }
+        for(int i=0; i<3; i++){
+        	this.right[i] = new Texture(Gdx.files.internal("character/right" + i + ".jpg"));
+        }
         
+        this.currentFrame = this.down[0];
+  
+        // Adding set animations together
         animations.add(this.up);
         animations.add(this.down);
         animations.add(this.left);
         animations.add(this.right);
+        
+        //Starting position
+        this.x = 10;
+        this.y = 10;
     }
 
     // contains logic being called before rendering
     void update(){
         this.normalizedMovement();
+        this.updateCurrentFrame();
     }
     
     @Override
     public void render(SpriteBatch batch) {
         //Update logic before rendering
         this.update();
-        batch.draw( idle[0], (int)this.x, (int)this.y );
+        batch.draw( this.currentFrame, (int)this.x, (int)this.y );
     }
 
     @Override
@@ -63,6 +88,33 @@ public class Player implements RenderableObject {
         }
     }
     
+    private void updateCurrentFrame(){
+    	if(this.movingDown || this.movingUp || this.movingLeft || this.movingRight){
+    		this.animationTimer += (Gdx.graphics.getDeltaTime()* this.ANIMATION_SPEED) % 3;
+    		
+    	}
+    	
+    	int i = (int) this.animationTimer % 3 ;
+    	
+    	switch(this.animationDirection){
+    		case 'U':
+    			this.currentFrame = this.up[i];
+    			break;
+    		case 'D':
+    			this.currentFrame = this.down[i];
+    			break;
+    		case 'L':
+    			this.currentFrame = this.left[i];
+    			break;
+    		case 'R':
+    			this.currentFrame = this.right[i];
+    			break;
+    		default:
+    			this.currentFrame = this.down[0];
+    			break;
+    	}
+    }
+    
     // Player can only move a distance determined by the speed in any directions
     void normalizedMovement(){
         
@@ -70,19 +122,65 @@ public class Player implements RenderableObject {
         double dy = 0;
         
         // Movement in several directions
-        if( (this.movingUp || this.movingDown) && (this.movingLeft || this.movingRight) ){
-            dy = (this.movingUp) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
-            dx = (this.movingRight) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
+        if( (this.isMovingUp() || this.isMovingDown()) && (this.isMovingLeft() || this.isMovingRight()) ){
+            dy = (this.isMovingUp()) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
+            dx = (this.isMovingRight()) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
         // Vertical Movement
-        }else if(this.movingUp || this.movingDown){ 
-            dy = (this.movingUp) ? (this.speed) : -(this.speed);
+        }else if(this.isMovingUp() || this.isMovingDown()){ 
+            dy = (this.isMovingUp()) ? (this.speed) : -(this.speed);
         // Horizontal Movement
-        }else if(this.movingLeft || this.movingRight){ 
-            dx = (this.movingRight) ? (this.speed) : -(this.speed);
+        }else if(this.isMovingLeft() || this.isMovingRight()){ 
+            dx = (this.isMovingRight()) ? (this.speed) : -(this.speed);
         }
         
         this.x += dx;
         this.y += dy;
     }
+
+	boolean isMovingRight() {
+		return movingRight;
+	}
+
+	void setMovingRight(boolean movingRight) {
+		this.movingRight = movingRight;
+		if(movingRight){
+			this.animationDirection = 'R';
+		}
+	}
+
+	boolean isMovingLeft() {
+		return movingLeft;
+	}
+
+	void setMovingLeft(boolean movingLeft) {
+		this.movingLeft = movingLeft;
+		if(movingLeft){
+			this.animationDirection = 'L';
+		}
+	}
+
+	boolean isMovingUp() {
+		return movingUp;
+	}
+
+	void setMovingUp(boolean movingUp) {
+		this.movingUp = movingUp;
+		if(movingUp){
+			this.animationDirection = 'U';
+		}
+	}
+
+	boolean isMovingDown() {
+		return movingDown;
+	}
+
+	void setMovingDown(boolean movingDown) {
+		this.movingDown = movingDown;
+		if(movingDown){
+			this.animationDirection = 'D';
+		}
+	}
+    
+    
     
 }

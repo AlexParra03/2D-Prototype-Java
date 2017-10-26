@@ -43,24 +43,24 @@ public class MainPrototype extends ApplicationAdapter {
             
             //Player movement
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-                player.movingLeft = true;
+                player.setMovingLeft(true);
             }else{
-                player.movingLeft = false;
+                player.setMovingLeft(false);
             }
             if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-                player.movingRight = true;
+                player.setMovingRight(true);
             }else{
-                player.movingRight = false;
+                player.setMovingRight(false);
             }
             if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-                player.movingUp = true;
+                player.setMovingUp(true);
             }else{
-                player.movingUp = false;
+                player.setMovingUp(false);
             }
             if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-                player.movingDown = true;
+                player.setMovingDown(true);
             }else{
-                player.movingDown = false;
+                player.setMovingDown(false);
             }
             
         }
