@@ -35,8 +35,7 @@ public class MainPrototype extends ApplicationAdapter {
             map.render(batch);
             player.render(batch);
             dialog.render(batch);
-            dialog.show("Hello World!!!");
-            
+            dialog.show("Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello  Hi");
             batch.end();
 	}
 	
@@ -72,5 +71,27 @@ public class MainPrototype extends ApplicationAdapter {
                 player.setMovingDown(false);
             }
             
+             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+                 System.out.println(Gdx.input.getY());
+                if(Gdx.input.getX() >= dialog.buttonX && Gdx.input.getX() <= (dialog.buttonX + dialog.buttonWidth)){
+                    if(Gdx.input.getY() <= dialog.buttonY && Gdx.input.getY() <= (dialog.buttonY + dialog.buttonHeight)){
+                        dialog.visible = false;
+                        System.out.println("click");
+                    }
+                }
+             
+             }
+            
         }
+        
+        /*
+            if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+        sprite.setPosition(Gdx.input.getX() - sprite.getWidth()/2,
+                Gdx.graphics.getHeight() - Gdx.input.getY() - sprite.getHeight()/2);
+    }
+        if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+            sprite.setPosition(Gdx.graphics.getWidth()/2 -sprite.getWidth()/2, 
+                    Gdx.graphics.getHeight()/2 - sprite.getHeight()/2);
+        }
+        */
 }

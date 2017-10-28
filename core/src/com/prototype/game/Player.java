@@ -62,8 +62,8 @@ public class Player implements RenderableObject {
         animations.add(this.right);
         
         //Starting position
-        this.x = 10;
-        this.y = 10;
+        this.x = 300;
+        this.y = 300;
     }
 
     // contains logic being called before rendering
