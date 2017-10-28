@@ -41,16 +41,16 @@ public class Player implements RenderableObject {
     	
     	//Adding animation frames to each set
         for(int i=0; i<3; i++){
-        	this.up[i] = new Texture(Gdx.files.internal("character/up" + i + ".jpg"));
+        	this.up[i] = new Texture(Gdx.files.internal("character/up" + i + ".png"));
         }
         for(int i=0; i<3; i++){
-        	this.down[i] = new Texture(Gdx.files.internal("character/down" + i + ".jpg"));
+        	this.down[i] = new Texture(Gdx.files.internal("character/down" + i + ".png"));
         }
         for(int i=0; i<3; i++){
-        	this.left[i] = new Texture(Gdx.files.internal("character/left" + i + ".jpg"));
+        	this.left[i] = new Texture(Gdx.files.internal("character/left" + i + ".png"));
         }
         for(int i=0; i<3; i++){
-        	this.right[i] = new Texture(Gdx.files.internal("character/right" + i + ".jpg"));
+        	this.right[i] = new Texture(Gdx.files.internal("character/right" + i + ".png"));
         }
         
         this.currentFrame = this.down[0];
