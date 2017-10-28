@@ -12,9 +12,9 @@ public class Dialog implements RenderableObject {
     ShapeRenderer boxes = new ShapeRenderer();
     
     //Maximum allowed character per line
-    private int maxCharacters = 100;
+    private int maxCharacters = 120;
     //Maxumim allowed lines
-    private int maxLines = 2;
+    private int maxLines = 5;
     public boolean visible = false;
     ArrayList<String> textLines = new ArrayList<String>();
     
@@ -33,23 +33,27 @@ public class Dialog implements RenderableObject {
     }
     
     public void show(String msg){
+        msg = " " + msg + " .";
         this.visible = true;
         String[] words = msg.split(" ");
  
         int wordIndex = 0;
         // Making lines of text of complete words with no more than @charPerLine characters
-        while(wordIndex < words.length-1){
-            String line = "";
-            for(String word : words){
-                if(line.length()+word.length()+1  <= maxCharacters){
-                    line += " " + word;
-                    wordIndex++;
-                }else{
-                    break;
-                }
+         String line = "";  
+        while(wordIndex < words.length){
+            if(line.length()+words[wordIndex].length()+1  <= maxCharacters){
+                line += " " + words[wordIndex];
+                wordIndex++;
+            }else{
+                textLines.add(line);
+                line = "";
             }
-            textLines.add(line);
         }
+        textLines.add(line);
+    }
+    
+    public void close(){
+        this.visible = false;
     }
 
     @Override

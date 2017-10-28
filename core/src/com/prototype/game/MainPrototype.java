@@ -23,9 +23,13 @@ public class MainPrototype extends ApplicationAdapter {
             this.map = new TileMap(Gdx.graphics.getWidth()/32, Gdx.graphics.getHeight()/32);
             this.player = new Player();
             this.dialog = new Dialog();
+            dialog.show("Hello. In this game we will put to the test your knowledge of Computer Science concepts, more speccifically, boolean logic, unit conversion (from decimal to other bases like binary, octal, hex, etc) and teach you useful concepts");
+
             
 	}
 
+        boolean dialogRead = false;
+        
 	@Override
 	public void render () {
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -35,7 +39,6 @@ public class MainPrototype extends ApplicationAdapter {
             map.render(batch);
             player.render(batch);
             dialog.render(batch);
-            dialog.show("Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello  Hi");
             batch.end();
 	}
 	
@@ -72,11 +75,10 @@ public class MainPrototype extends ApplicationAdapter {
             }
             
              if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-                 System.out.println(Gdx.input.getY());
                 if(Gdx.input.getX() >= dialog.buttonX && Gdx.input.getX() <= (dialog.buttonX + dialog.buttonWidth)){
-                    if(Gdx.input.getY() <= dialog.buttonY && Gdx.input.getY() <= (dialog.buttonY + dialog.buttonHeight)){
-                        dialog.visible = false;
-                        System.out.println("click");
+                    if(Gdx.input.getY() >= (Gdx.graphics.getHeight()- dialog.buttonY-dialog.buttonHeight) && Gdx.input.getY() <= (Gdx.graphics.getHeight()-dialog.buttonY)){
+                        dialog.close();
+                        dialogRead = true;
                     }
                 }
              
