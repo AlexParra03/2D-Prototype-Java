@@ -14,9 +14,12 @@ public class MainPrototype extends ApplicationAdapter {
         Player player;
         Dialog dialog;
 	
+        
+        
 	@Override
 	public void create () {
             Gdx.graphics.setWindowedMode(800, 600);
+            Gdx.graphics.setResizable(false);
             batch = new SpriteBatch();
                 
             //Creating instance of map  
