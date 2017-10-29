@@ -28,12 +28,21 @@ public class TileMap implements RenderableObject {
             }
         }
         
-        this.map[4][4] = 1;
-        this.map[5][4] = 1;
+        this.map[15][15] = 1;
+        this.map[15][16] = 1;
+        this.map[15][17] = 1;
+        this.map[16][16] = 1;
         
-        //Add 0th texture
-        tileTextures.add(  new Texture(  Gdx.files.internal("tiles/Rockpixel1.jpg") )   );
-        tileTextures.add(  new Texture( Gdx.files.internal( "tiles/grass.png") )   );
+        this.map[0][0] = 2;
+        this.map[0][1] = 2;
+        this.map[1][1] = 2;
+        this.map[1][2] = 2;
+        this.map[1][3] = 2;
+        
+        // Adding textures
+        for(int i=0; i<= 18; i++){
+            tileTextures.add(  new Texture(  Gdx.files.internal("tiles/tile" + i + ".png") )   );
+        }
     }
     
     public void changeTile(int row, int column, int textureKey){

@@ -20,7 +20,7 @@ public class MainPrototype extends ApplicationAdapter {
             batch = new SpriteBatch();
                 
             //Creating instance of map  
-            this.map = new TileMap(Gdx.graphics.getWidth()/32, Gdx.graphics.getHeight()/32);
+            this.map = new TileMap(30, 20);
             this.player = new Player();
             this.dialog = new Dialog();
             dialog.show("Hello. In this game we will put to the test your knowledge of Computer Science concepts, more speccifically, boolean logic, unit conversion (from decimal to other bases like binary, octal, hex, etc) and teach you useful concepts");
