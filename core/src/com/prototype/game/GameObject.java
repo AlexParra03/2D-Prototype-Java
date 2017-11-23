@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public class GameObject implements RenderableObject{
+public abstract class GameObject implements RenderableObject{
 
     int width;
     int height;
@@ -29,5 +29,7 @@ public class GameObject implements RenderableObject{
     public void dispose() {
         texture.dispose();
     }
+    
+    public abstract void action();
     
 }

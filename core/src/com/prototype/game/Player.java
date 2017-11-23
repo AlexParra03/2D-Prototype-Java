@@ -37,6 +37,9 @@ public class Player implements RenderableObject {
     //Statistics
     double speed = 2;
     
+    //Game Object collisions
+    ArrayList<GameObject> objects;
+    
     public Player(){
     	
     	//Adding animation frames to each set
@@ -83,7 +86,7 @@ public class Player implements RenderableObject {
     public void dispose() {
         for(Texture[] set : animations){
             for(Texture frame : set){
-                //frame.dispose();
+                frame.dispose();
             }
         }
     }
@@ -121,7 +124,7 @@ public class Player implements RenderableObject {
         double dx = 0;
         double dy = 0;
         
-        // Movement in several directions
+        // Movement in 2 directions
         if( (this.isMovingUp() || this.isMovingDown()) && (this.isMovingLeft() || this.isMovingRight()) ){
             dy = (this.isMovingUp()) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
             dx = (this.isMovingRight()) ? ((Math.sqrt(2)/2)*this.speed) : -((Math.sqrt(2)/2)*this.speed);
@@ -180,6 +183,10 @@ public class Player implements RenderableObject {
 			this.animationDirection = 'D';
 		}
 	}
+        
+        void setGameObjects(ArrayList<GameObject> objects){
+           this.objects = objects;
+        }
     
     
     

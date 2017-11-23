@@ -10,9 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainPrototype extends ApplicationAdapter {
 	SpriteBatch batch;
-        TileMap map;
-        Player player;
-        Dialog dialog;
+        Level level;
 	
         
         
@@ -21,13 +19,7 @@ public class MainPrototype extends ApplicationAdapter {
             Gdx.graphics.setWindowedMode(800, 600);
             Gdx.graphics.setResizable(false);
             batch = new SpriteBatch();
-                
-            //Creating instance of map  
-            this.map = new TileMap(30, 20);
-            this.player = new Player();
-            this.dialog = new Dialog();
-            dialog.show("Hello. In this game we will put to the test your knowledge of Computer Science concepts, more speccifically, boolean logic, unit conversion (from decimal to other bases like binary, octal, hex, etc) and teach you useful concepts");
-
+            this.level = new Level();
             
 	}
 
@@ -39,22 +31,19 @@ public class MainPrototype extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             handleInput();
             batch.begin();
-            map.render(batch);
-            player.render(batch);
-            dialog.render(batch);
+            level.render(batch);
             batch.end();
 	}
 	
 	@Override
 	public void dispose () {
             batch.dispose();
-            map.dispose();
-            player.dispose();
-            dialog.dispose();
+            level.dispose();
 	}
         
         void handleInput(){
             
+            Player player = level.player;
             //Player movement
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
                 player.setMovingLeft(true);
@@ -77,6 +66,7 @@ public class MainPrototype extends ApplicationAdapter {
                 player.setMovingDown(false);
             }
             
+            Dialog dialog = level.dialog;
              if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 if(Gdx.input.getX() >= dialog.buttonX && Gdx.input.getX() <= (dialog.buttonX + dialog.buttonWidth)){
                     if(Gdx.input.getY() >= (Gdx.graphics.getHeight()- dialog.buttonY-dialog.buttonHeight) && Gdx.input.getY() <= (Gdx.graphics.getHeight()-dialog.buttonY)){
