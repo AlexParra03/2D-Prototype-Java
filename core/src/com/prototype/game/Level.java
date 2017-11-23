@@ -1,6 +1,8 @@
 
 package com.prototype.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 
@@ -13,7 +15,7 @@ public class Level implements RenderableObject {
     
     
     public Level(){
-        this.player = player;
+        this.player = new Player();
         this.dialog = new Dialog();
         
         this.selectLevel(1);
@@ -28,8 +30,9 @@ public class Level implements RenderableObject {
     }
     
     public void buildLevelOne(){
-        this.map = new TileMap(10,10);
+        this.map = new TileMap();
         this.objects = new ArrayList<GameObject>();
+        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),100, 100, 50, 50, this) );
         this.player.setGameObjects(objects);
     }
     

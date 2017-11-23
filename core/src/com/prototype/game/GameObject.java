@@ -11,13 +11,15 @@ public abstract class GameObject implements RenderableObject{
     int height;
     int x,y;
     Texture texture;
+    Level level;
     
-    public GameObject(Texture texture, int width, int height, int x, int y){
+    public GameObject(Texture texture, int width, int height, int x, int y, Level level){
         this.texture = texture;
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
+        this.level = level;
     }
     
     @Override

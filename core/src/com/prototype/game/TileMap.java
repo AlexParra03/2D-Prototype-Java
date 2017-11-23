@@ -13,7 +13,9 @@ public class TileMap implements RenderableObject {
     public ArrayList<Texture> tileTextures;
     static final int TILE_SIZE = 32;
     
-    public TileMap(int height, int width){
+    public TileMap(){
+        int height = 20;
+        int width = 20;
         if(height < 0 || width < 0){
             throw new Error("Dimensions for Tile Map not allowed.");
         }
@@ -28,16 +30,6 @@ public class TileMap implements RenderableObject {
             }
         }
         
-        this.map[15][15] = 1;
-        this.map[15][16] = 1;
-        this.map[15][17] = 1;
-        this.map[16][16] = 1;
-        
-        this.map[0][0] = 2;
-        this.map[0][1] = 2;
-        this.map[1][1] = 2;
-        this.map[1][2] = 2;
-        this.map[1][3] = 2;
         
         // Adding textures
         for(int i=0; i<= 18; i++){
