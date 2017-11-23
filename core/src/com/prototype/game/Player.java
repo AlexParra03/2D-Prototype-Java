@@ -23,6 +23,11 @@ public class Player implements RenderableObject {
     private boolean movingLeft = false;
     private boolean movingRight = false;
     
+    //Collision
+    private boolean leftCollision = false;
+    private boolean rightCollision = false;
+    private boolean upCollision = false;
+    private boolean downCollision = false;
     
     // Used to pick the set of animations U: Up, D: Down, L: Left, R: Right
     private char animationDirection = 'D';
@@ -33,6 +38,8 @@ public class Player implements RenderableObject {
     //Position
     public double x;
     public double y;
+    private int width = 30;
+    private int height = 30;
     
     //Statistics
     double speed = 2;
@@ -91,30 +98,39 @@ public class Player implements RenderableObject {
         }
     }
     
+    private void gameObjectsCollision(){
+        int xCenter = (int)x + 15;
+        int yCenter = (int)y;
+        if(objects != null){
+            for(GameObject object : objects){
+                //TODO implement collision
+            }
+        }
+    }
+    
     private void updateCurrentFrame(){
     	if(this.movingDown || this.movingUp || this.movingLeft || this.movingRight){
-    		this.animationTimer += (Gdx.graphics.getDeltaTime()* this.ANIMATION_SPEED) % 3;
-    		
+    		this.animationTimer += (Gdx.graphics.getDeltaTime()* this.ANIMATION_SPEED) % 3;	
     	}
     	
     	int i = (int) this.animationTimer % 3 ;
     	
     	switch(this.animationDirection){
-    		case 'U':
-    			this.currentFrame = this.up[i];
-    			break;
-    		case 'D':
-    			this.currentFrame = this.down[i];
-    			break;
-    		case 'L':
-    			this.currentFrame = this.left[i];
-    			break;
-    		case 'R':
-    			this.currentFrame = this.right[i];
-    			break;
-    		default:
-    			this.currentFrame = this.down[0];
-    			break;
+            case 'U':
+                    this.currentFrame = this.up[i];
+                    break;
+            case 'D':
+                    this.currentFrame = this.down[i];
+                    break;
+            case 'L':
+                    this.currentFrame = this.left[i];
+                    break;
+            case 'R':
+                    this.currentFrame = this.right[i];
+                    break;
+            default:
+                    this.currentFrame = this.down[0];
+                    break;
     	}
     }
     
@@ -140,53 +156,54 @@ public class Player implements RenderableObject {
         this.y += dy;
     }
 
-	boolean isMovingRight() {
-		return movingRight;
-	}
+    boolean isMovingRight() {
+        return movingRight;
+    }
 
-	void setMovingRight(boolean movingRight) {
-		this.movingRight = movingRight;
-		if(movingRight){
-			this.animationDirection = 'R';
-		}
-	}
-
-	boolean isMovingLeft() {
-		return movingLeft;
-	}
-
-	void setMovingLeft(boolean movingLeft) {
-		this.movingLeft = movingLeft;
-		if(movingLeft){
-			this.animationDirection = 'L';
-		}
-	}
-
-	boolean isMovingUp() {
-		return movingUp;
-	}
-
-	void setMovingUp(boolean movingUp) {
-		this.movingUp = movingUp;
-		if(movingUp){
-			this.animationDirection = 'U';
-		}
-	}
-
-	boolean isMovingDown() {
-		return movingDown;
-	}
-
-	void setMovingDown(boolean movingDown) {
-		this.movingDown = movingDown;
-		if(movingDown){
-			this.animationDirection = 'D';
-		}
-	}
-        
-        void setGameObjects(ArrayList<GameObject> objects){
-           this.objects = objects;
+    void setMovingRight(boolean movingRight) {
+        this.movingRight = !this.rightCollision && movingRight ;
+        if(movingRight){
+                this.animationDirection = 'R';
         }
+    }
+
+    boolean isMovingLeft() {
+        return movingLeft;
+    }
+
+    void setMovingLeft(boolean movingLeft) {
+        this.movingLeft = !this.leftCollision && movingleft;
+        if(movingLeft){
+                this.animationDirection = 'L';
+        }
+    }
+
+    boolean isMovingUp() {
+        return movingUp;
+    }
+
+    void setMovingUp(boolean movingUp) {
+        this.movingUp = !this.upCollision && movingUp;
+        if(movingUp){
+                this.animationDirection = 'U';
+        }
+    }
+
+    boolean isMovingDown() {
+        return movingDown;
+    }
+
+    void setMovingDown(boolean movingDown) {
+        this.movingDown = !this.downCollision && movingDown;
+        if(movingDown){
+                this.animationDirection = 'D';
+        }
+    }
+
+    void setGameObjects(ArrayList<GameObject> objects){
+       this.objects = objects;
+    }
+
     
     
     
