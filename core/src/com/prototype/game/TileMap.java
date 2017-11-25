@@ -13,9 +13,7 @@ public class TileMap implements RenderableObject {
     public ArrayList<Texture> tileTextures;
     static final int TILE_SIZE = 32;
     
-    public TileMap(){
-        int height = 20;
-        int width = 20;
+    public TileMap(int width, int height){
         if(height < 0 || width < 0){
             throw new Error("Dimensions for Tile Map not allowed.");
         }
@@ -54,7 +52,7 @@ public class TileMap implements RenderableObject {
         
         for(int i=0; i<this.map.length; i++ ){
             for(int j=0; j<this.map[0].length; j++){
-                batch.draw(tileTextures.get( this.map[i][j] ), TILE_SIZE*i, TILE_SIZE*j);
+                batch.draw(tileTextures.get( this.map[i][j] ), TILE_SIZE*j, TILE_SIZE*i);
             }
         }
     }

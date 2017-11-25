@@ -19,10 +19,10 @@ public class Dialog implements RenderableObject {
     ArrayList<String> textLines = new ArrayList<String>();
     
     // Vertical padding in which the text will be rendered before the button
-    public int buttonY = 20; 
-    public int buttonX = 300;
-    public int buttonWidth = 50;
-    public int buttonHeight = 30;
+    protected int buttonY = 20; 
+    protected int buttonX = 300;
+    protected int buttonWidth = 50;
+    protected int buttonHeight = 30;
     
     private static final int WIDTH = 780;
     private static final int HEIGHT = 150;
@@ -33,27 +33,30 @@ public class Dialog implements RenderableObject {
     }
     
     public void show(String msg){
-        msg = " " + msg + " .";
-        this.visible = true;
-        String[] words = msg.split(" ");
- 
-        int wordIndex = 0;
-        // Making lines of text of complete words with no more than @charPerLine characters
-         String line = "";  
-        while(wordIndex < words.length){
-            if(line.length()+words[wordIndex].length()+1  <= maxCharacters){
-                line += " " + words[wordIndex];
-                wordIndex++;
-            }else{
-                textLines.add(line);
-                line = "";
+        if(!this.visible){
+            msg = " " + msg + " .";
+            this.visible = true;
+            String[] words = msg.split(" ");
+
+            int wordIndex = 0;
+            // Making lines of text of complete words with no more than @charPerLine characters
+             String line = "";  
+            while(wordIndex < words.length){
+                if(line.length()+words[wordIndex].length()+1  <= maxCharacters){
+                    line += " " + words[wordIndex];
+                    wordIndex++;
+                }else{
+                    textLines.add(line);
+                    line = "";
+                }
             }
+            textLines.add(line);
         }
-        textLines.add(line);
     }
     
     public void close(){
         this.visible = false;
+        this.textLines.clear();
     }
 
     @Override

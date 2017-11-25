@@ -15,7 +15,7 @@ public class ComputerObject extends GameObject {
 
     @Override
     public void action() {
-        
+        level.dialog.show("Hello adventurer this is a puzzle X");
     }
     
 }

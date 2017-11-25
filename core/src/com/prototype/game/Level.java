@@ -30,9 +30,9 @@ public class Level implements RenderableObject {
     }
     
     public void buildLevelOne(){
-        this.map = new TileMap();
+        this.map = new TileMap(24, 18);
         this.objects = new ArrayList<GameObject>();
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),100, 100, 50, 50, this) );
+        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this) );
         this.player.setGameObjects(objects);
     }
     

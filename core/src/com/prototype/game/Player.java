@@ -28,6 +28,7 @@ public class Player implements RenderableObject {
     private boolean rightCollision = false;
     private boolean upCollision = false;
     private boolean downCollision = false;
+    private boolean colliding = false;
     
     // Used to pick the set of animations U: Up, D: Down, L: Left, R: Right
     private char animationDirection = 'D';
@@ -38,8 +39,7 @@ public class Player implements RenderableObject {
     //Position
     public double x;
     public double y;
-    private int width = 30;
-    private int height = 30;
+    
     
     //Statistics
     double speed = 2;
@@ -80,6 +80,7 @@ public class Player implements RenderableObject {
     void update(){
         this.normalizedMovement();
         this.updateCurrentFrame();
+        this.gameObjectsCollision();
     }
     
     @Override
@@ -99,13 +100,44 @@ public class Player implements RenderableObject {
     }
     
     private void gameObjectsCollision(){
-        int xCenter = (int)x + 15;
-        int yCenter = (int)y;
+        int xOffset = 10;
+        
+        // Check for object collision
         if(objects != null){
             for(GameObject object : objects){
                 //TODO implement collision
+                if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
+                    if((int)this.y > object.y && (int)this.y < object.y + object.height){
+                        if(!this.colliding){
+                            this.leftCollision = this.movingLeft;
+                            this.rightCollision = this.movingRight;
+                            this.upCollision = this.movingUp;
+                            this.downCollision = this.movingDown;
+                            object.action();
+                            this.colliding = true;
+                        }
+                    }
+                }
+                
+                if(this.colliding){ // If there is no collision, reset collision flags
+                    if (  !( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height) ){
+                        this.leftCollision = false;
+                        this.rightCollision = false;
+                        this.upCollision = false;
+                        this.downCollision = false;
+                        this.colliding = false;
+                    }
+                }else{
+                    // Check for border/edge collision if there is no object collision
+                    this.rightCollision = (int)this.x > 783;
+                    this.leftCollision = (int)this.x < -1;
+                    this.upCollision = (int)this.y > 583;
+                    this.downCollision = (int)this.y < 1;
+                }
             }
         }
+        
+
     }
     
     private void updateCurrentFrame(){
@@ -172,7 +204,7 @@ public class Player implements RenderableObject {
     }
 
     void setMovingLeft(boolean movingLeft) {
-        this.movingLeft = !this.leftCollision && movingleft;
+        this.movingLeft = !this.leftCollision && movingLeft;
         if(movingLeft){
                 this.animationDirection = 'L';
         }
