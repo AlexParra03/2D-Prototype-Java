@@ -21,6 +21,7 @@ public class MainPrototype extends ApplicationAdapter {
         batch = new SpriteBatch();
         this.level = new Level();
 
+
     }
 
     @Override
@@ -31,6 +32,7 @@ public class MainPrototype extends ApplicationAdapter {
         batch.begin();
         level.render(batch);
         batch.end();
+        
     }
 
     @Override

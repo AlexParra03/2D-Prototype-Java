@@ -4,6 +4,8 @@ package com.prototype.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
+
 import static com.prototype.game.TileMap.TILE_SIZE;
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class Player implements RenderableObject {
     double speed = 2;
     
     //Game Object collisions
-    ArrayList<GameObject> objects;
+    Array<GameObject> objects;
     
     public Player(){
     	
@@ -108,33 +110,54 @@ public class Player implements RenderableObject {
                 //TODO implement collision
                 if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
                     if((int)this.y > object.y && (int)this.y < object.y + object.height){
-                        if(!this.colliding){
-                            this.leftCollision = this.movingLeft;
-                            this.rightCollision = this.movingRight;
-                            this.upCollision = this.movingUp;
-                            this.downCollision = this.movingDown;
-                            object.action();
-                            this.colliding = true;
-                        }
+                    	if(object.collidable) {
+                    		if(!this.colliding){
+                    			this.leftCollision = this.movingLeft;
+                    			this.rightCollision = this.movingRight;
+                    			this.upCollision = this.movingUp;
+                    			this.downCollision = this.movingDown;
+                    			object.action();
+                    			this.colliding = true;
+                    		}
+                    	} else {
+                    		object.action();
+                    		this.colliding = true;
+                    	}
                     }
                 }
                 
-                if(this.colliding){ // If there is no collision, reset collision flags
-                    if (  !( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height) ){
+
+            }
+            
+            if(this.colliding){ // Checking collision with all objects
+                boolean stillColliding = false;
+                for(GameObject object : objects){
+                    // If player is colliding with object
+                     if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
+                         stillColliding = true;
+                         break;
+                     }
+                }
+                
+                if(!stillColliding){  // Resetting collision flags
                         this.leftCollision = false;
                         this.rightCollision = false;
                         this.upCollision = false;
                         this.downCollision = false;
                         this.colliding = false;
-                    }
-                }else{
+                }
+            }
+            
+  
+            if(!this.colliding){
                     // Check for border/edge collision if there is no object collision
                     this.rightCollision = (int)this.x > 783;
                     this.leftCollision = (int)this.x < -1;
                     this.upCollision = (int)this.y > 583;
                     this.downCollision = (int)this.y < 1;
-                }
             }
+
+                
         }
         
 
@@ -232,7 +255,7 @@ public class Player implements RenderableObject {
         }
     }
 
-    void setGameObjects(ArrayList<GameObject> objects){
+    void setGameObjects(Array<GameObject> objects){
        this.objects = objects;
     }
 

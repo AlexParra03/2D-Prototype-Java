@@ -4,20 +4,24 @@ package com.prototype.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
+
 import java.util.ArrayList;
 
 
 public class Level implements RenderableObject {
     Player player;
     TileMap map;
-    ArrayList<GameObject> objects;
+    Array<GameObject> objects;
     Dialog dialog;
+    Inventory inventory;
+    Key[] keys;
     
     
     public Level(){
         this.player = new Player();
         this.dialog = new Dialog();
-        
+        this.inventory = new Inventory();
         this.selectLevel(1);
     }
     
@@ -30,10 +34,13 @@ public class Level implements RenderableObject {
     }
     
     public void buildLevelOne(){
-        this.map = new TileMap(24, 18);
-        this.objects = new ArrayList<GameObject>();
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this) );
+        this.map = new TileMap(30, 20);
+        this.objects = new Array<GameObject>();
+        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this, true) );
+        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 39, 200, this, true) );
         this.player.setGameObjects(objects);
+        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "01", false, false));
+        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "02", false, false));
     }
     
 
@@ -45,6 +52,7 @@ public class Level implements RenderableObject {
             object.render(batch);
         }
         this.player.render(batch);
+        this.inventory.render(batch);
         this.dialog.render(batch);
     }
 
@@ -54,7 +62,11 @@ public class Level implements RenderableObject {
         for(GameObject object : objects){
             object.dispose();
         }
+        for(Key key: keys) {
+        	key.dispose();
+        }
         this.player.dispose();
+        this.inventory.dispose();
         this.dialog.dispose();
     }
     

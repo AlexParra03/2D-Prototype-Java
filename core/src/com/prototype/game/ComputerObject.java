@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class ComputerObject extends GameObject {
 
-    public ComputerObject(Texture texture, int width, int height, int x, int y, Level level) {
-        super(texture, width, height, x, y, level);
+    public ComputerObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable) {
+        super(texture, width, height, x, y, level, collidable);
     }
 
     @Override
