@@ -119,22 +119,38 @@ public class Player implements RenderableObject {
                     }
                 }
                 
-                if(this.colliding){ // If there is no collision, reset collision flags
-                    if (  !( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height) ){
+
+            }
+            
+            if(this.colliding){ // Checking collision with all objects
+                boolean stillColliding = false;
+                for(GameObject object : objects){
+                    // If player is colliding with object
+                     if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
+                         stillColliding = true;
+                         break;
+                     }
+                }
+                
+                if(!stillColliding){  // Reseting collition flags
                         this.leftCollision = false;
                         this.rightCollision = false;
                         this.upCollision = false;
                         this.downCollision = false;
                         this.colliding = false;
-                    }
-                }else{
+                }
+            }
+            
+  
+            if(!this.colliding){
                     // Check for border/edge collision if there is no object collision
                     this.rightCollision = (int)this.x > 783;
                     this.leftCollision = (int)this.x < -1;
                     this.upCollision = (int)this.y > 583;
                     this.downCollision = (int)this.y < 1;
-                }
             }
+
+                
         }
         
 

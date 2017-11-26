@@ -33,6 +33,7 @@ public class Level implements RenderableObject {
         this.map = new TileMap(24, 18);
         this.objects = new ArrayList<GameObject>();
         objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this) );
+        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 400, 400, this) );
         this.player.setGameObjects(objects);
     }
     
