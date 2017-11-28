@@ -50,7 +50,11 @@ public class Key extends GameObject{
 	}
 
 	
+	
 	@Override
+	/**
+	 * When a key is touched, it is put into the inventory and removed from the screen
+	 */
 	public void action() {
 		if(!inInventory) {
 			inInventory = true;
@@ -59,6 +63,9 @@ public class Key extends GameObject{
 	}
 	
 	@Override
+	/**
+	 * Renders the key on screen
+	 */
 	public void render(SpriteBatch batch) {
 		if(!inInventory) {
 			batch.draw(texture, x, y);

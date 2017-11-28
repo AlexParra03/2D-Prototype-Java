@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MainPrototype extends ApplicationAdapter {
     SpriteBatch batch;
     Level level;
+    Hint hint;
 
 
 
@@ -20,7 +21,6 @@ public class MainPrototype extends ApplicationAdapter {
         Gdx.graphics.setResizable(false);
         batch = new SpriteBatch();
         this.level = new Level();
-
 
     }
 
@@ -75,6 +75,17 @@ public class MainPrototype extends ApplicationAdapter {
             }
 
          }
+         
+         //Handles the clicking event for the hint button
+         Hint hints = level.hints;
+         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+             if(Gdx.input.getX() >= (hint.X - hints.TOTAL_RADIUS) && Gdx.input.getX() <= (hints.X + hints.TOTAL_RADIUS)){
+                 if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - hints.Y - hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - hints.Y + hints.TOTAL_RADIUS)){
+                	hints.show();
+                 }
+             }
+
+          }
 
     }
 

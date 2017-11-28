@@ -63,6 +63,9 @@ public class Inventory implements RenderableObject{
 	}
 	
 	@Override
+	/**
+	 * Renders an inventory box for each key in the inventory
+	 */
 	public void render(SpriteBatch batch) {
 		//Draw boxes first
 		batch.end();
@@ -87,6 +90,9 @@ public class Inventory implements RenderableObject{
 	}
 	
 	@Override
+	/**
+	 * Disposes of all the inventory components
+	 */
 	public void dispose() {
 		for(Key key: keys) {
 			key.dispose();
