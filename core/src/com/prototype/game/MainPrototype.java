@@ -12,6 +12,7 @@ public class MainPrototype extends ApplicationAdapter {
     SpriteBatch batch;
     Level level;
     Hint hint;
+    TextInput input;
 
 
 
@@ -21,6 +22,7 @@ public class MainPrototype extends ApplicationAdapter {
         Gdx.graphics.setResizable(false);
         batch = new SpriteBatch();
         this.level = new Level();
+        
 
     }
 

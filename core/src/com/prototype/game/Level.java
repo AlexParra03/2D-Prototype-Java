@@ -14,6 +14,7 @@ public class Level implements RenderableObject {
     Dialog dialog;
     Inventory inventory;
     Hint hints;
+    TextInput input;
     
     
     public Level(){
@@ -21,6 +22,8 @@ public class Level implements RenderableObject {
         this.dialog = new Dialog();
         this.inventory = new Inventory();
         this.hints = new Hint(dialog);
+        this.objects = new Array<GameObject>();
+        this.input = new TextInput(objects);
         this.selectLevel(1);
     }
     
@@ -35,9 +38,11 @@ public class Level implements RenderableObject {
     private void buildLevelOne(){
     	hints.setLevel(1);
         this.map = new TileMap(30, 20);
-        this.objects = new Array<GameObject>();
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this, true) );
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 39, 200, this, true) );
+        int[] answers = new int[2];
+        answers[0] = 5;
+        answers[1] = 14;
+        objects.add( new ComputerObject(50, 50, 65, 400, this, true, "101", 5)  );
+        objects.add( new ComputerObject(50, 50, 39, 200, this, true, "1110", 14) );
         objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 420, 360, this, "01", false, false));
         objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "02", false, false));
         this.player.setGameObjects(objects);

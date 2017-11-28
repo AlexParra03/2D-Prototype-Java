@@ -46,7 +46,7 @@ public class Hint implements RenderableObject {
 				+ "Call the right position 0 and increment that number by 1 for each position up to the beginning of the number. "
 				+ "For each position with a 1, calculate 2 raised to the power of that position number and add all of them together. "
 				+ "This number is the decimal representation of the binary number. "
-				+ "Ex: 1010 = 2^3 + 2^1 = 8 + 2 = 10";
+				+ "Ex: (1010) = 2^3 + 2^1 = 8 + 2 = 10";
 	}
 	
 	/**
