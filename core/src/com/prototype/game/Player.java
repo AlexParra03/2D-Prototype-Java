@@ -139,6 +139,7 @@ public class Player implements RenderableObject {
                      }
                 }
                 
+
                 if(!stillColliding){  // Resetting collision flags
                         this.leftCollision = false;
                         this.rightCollision = false;

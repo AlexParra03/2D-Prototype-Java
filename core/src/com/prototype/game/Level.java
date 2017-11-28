@@ -38,9 +38,10 @@ public class Level implements RenderableObject {
         this.objects = new Array<GameObject>();
         objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this, true) );
         objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 39, 200, this, true) );
+        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 420, 360, this, "01", false, false));
+        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "02", false, false));
         this.player.setGameObjects(objects);
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "01", false, false));
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 40, 200, this, "02", false, false));
+
     }
     
 
