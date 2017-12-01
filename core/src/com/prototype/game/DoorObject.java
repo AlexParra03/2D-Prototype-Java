@@ -5,13 +5,19 @@
  */
 package com.prototype.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public class ComputerObject extends GameObject {
+/**
+ *
+ * @author alexu
+ */
+public class DoorObject extends GameObject{
 
-    public ComputerObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
+    public DoorObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
         super(texture, width, height, x, y, level, collidable, callback);
     }
 
+   
     
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public abstract class GameObject implements RenderableObject{
+public class GameObject implements RenderableObject{
 
     int width;
     int height;
@@ -13,8 +13,9 @@ public abstract class GameObject implements RenderableObject{
     Texture texture;
     Level level;
     boolean collidable;
+    Callback callback;
     
-    public GameObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable){
+    public GameObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback){
         this.texture = texture;
         this.width = width;
         this.height = height;
@@ -22,6 +23,7 @@ public abstract class GameObject implements RenderableObject{
         this.y = y;
         this.level = level;
         this.collidable = collidable;
+        this.callback = callback;
     }
     
     @Override
@@ -34,6 +36,10 @@ public abstract class GameObject implements RenderableObject{
         texture.dispose();
     }
     
-    public abstract void action();
+    public void action(){
+        if (callback != null){
+            callback.action();
+        }
+    }
     
 }

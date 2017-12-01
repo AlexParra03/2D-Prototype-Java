@@ -23,6 +23,7 @@ public class Level implements RenderableObject {
         this.dialog = new Dialog();
         this.inventory = new Inventory();
         this.selectLevel(1);
+        
     }
     
     public void selectLevel(int levelId){
@@ -34,7 +35,7 @@ public class Level implements RenderableObject {
     }
     
     public void buildLevelOne(){
-
+        
         this.map = new TileMap(30, 20);
         this.objects = new Array<GameObject>();
         objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this, true) );
@@ -44,6 +45,7 @@ public class Level implements RenderableObject {
         this.player.setGameObjects(objects);
 
     }
+    
     
 
     @Override

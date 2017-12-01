@@ -7,9 +7,10 @@ package com.prototype.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class ComputerObject extends GameObject {
 
-    public ComputerObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
+public class RockObject extends GameObject {
+
+    public RockObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
         super(texture, width, height, x, y, level, collidable, callback);
     }
 

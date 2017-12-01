@@ -15,6 +15,8 @@ public class Key extends GameObject{
 	private String id;
 	//Whether the key is an actual game object or for display only (for inventory)
 	private boolean inInventory;
+        //Auto increment for each key
+        private static int globalId = 0;
 	
 	/**
 	 * Creates a key object
@@ -27,9 +29,10 @@ public class Key extends GameObject{
 	 * @param id The id of the key
 	 * @param display Whether the key is for display or for collecting
 	 */
-	public Key(Texture texture, int width, int height, int x, int y, Level level, String id, boolean collidable, boolean inInventory) {
-		super(texture, width, height, x, y, level, collidable);
-		this.id = id;
+	public Key(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback, boolean inInventory) {
+		super(texture, width, height, x, y, level, collidable, callback);
+		this.id = ""+Key.globalId;
+                Key.globalId++;
 		this.inInventory = inInventory;
 	}
 	
@@ -56,6 +59,7 @@ public class Key extends GameObject{
 			inInventory = true;
 			level.inventory.addKey(this);
 		}
+                callback.action();
 	}
 	
 	@Override
