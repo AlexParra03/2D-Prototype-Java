@@ -16,21 +16,34 @@ public class Level implements RenderableObject {
     Dialog dialog;
     Inventory inventory;
     Key[] keys;
+    private static int currentLevel = -1;
+    private FactoryObject factory;
     
     
     public Level(){
         this.player = new Player();
         this.dialog = new Dialog();
         this.inventory = new Inventory();
+        this.factory = new FactoryObject(this);
         this.selectLevel(1);
         
     }
     
     public void selectLevel(int levelId){
-        switch(levelId){
-            case 1:
-                buildLevelOne();
-                break;
+        if(Level.currentLevel != levelId){
+            if(this.objects != null){
+                for(GameObject object : this.objects){
+                    object.dispose();
+                }
+            }
+            
+            switch(levelId){
+                case 1:
+                    buildLevelOne();
+                    break;
+            }
+            
+            this.player.setGameObjects(this.objects);
         }
     }
     
@@ -38,11 +51,16 @@ public class Level implements RenderableObject {
         
         this.map = new TileMap(30, 20);
         this.objects = new Array<GameObject>();
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 65, 400, this, true) );
-        objects.add( new ComputerObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")),50, 50, 39, 200, this, true) );
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 420, 360, this, "01", false, false));
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "02", false, false));
-        this.player.setGameObjects(objects);
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.dialog.show("Hello");
+            }
+            
+        };
+        this.objects.add(factory.create("door side", 400, 400, function1));
+        this.objects.add(factory.create("door up", 200, 400, function1));
 
     }
     
@@ -65,9 +83,6 @@ public class Level implements RenderableObject {
         this.map.dispose();
         for(GameObject object : objects){
             object.dispose();
-        }
-        for(Key key: keys) {
-        	key.dispose();
         }
         this.player.dispose();
         this.inventory.dispose();

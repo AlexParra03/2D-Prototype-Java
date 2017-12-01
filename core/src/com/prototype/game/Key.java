@@ -59,7 +59,7 @@ public class Key extends GameObject{
 			inInventory = true;
 			level.inventory.addKey(this);
 		}
-                callback.action();
+                callback.action(this.level);
 	}
 	
 	@Override

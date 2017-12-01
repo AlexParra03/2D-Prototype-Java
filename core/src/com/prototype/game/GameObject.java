@@ -38,7 +38,7 @@ public class GameObject implements RenderableObject{
     
     public void action(){
         if (callback != null){
-            callback.action();
+            callback.action(this.level);
         }
     }
     

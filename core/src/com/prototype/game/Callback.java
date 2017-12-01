@@ -6,5 +6,5 @@
 package com.prototype.game;
 
 public interface Callback {
-    void action();
+    void action(Level level);
 }
