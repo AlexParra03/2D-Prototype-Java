@@ -14,6 +14,7 @@ public class Level implements RenderableObject {
     TileMap map;
     Array<GameObject> objects;
     Dialog dialog;
+    InputScanner input;
     Inventory inventory;
     Key[] keys;
     private static int currentLevel = -1;
@@ -23,6 +24,7 @@ public class Level implements RenderableObject {
     public Level(){
         this.player = new Player();
         this.dialog = new Dialog();
+        this.input = new InputScanner();
         this.inventory = new Inventory();
         this.factory = new FactoryObject(this);
         this.selectLevel(1);
