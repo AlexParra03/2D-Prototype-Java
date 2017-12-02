@@ -31,7 +31,7 @@ public class Inventory implements RenderableObject{
 	//Height from bottom of the screen to the key texture
 	private static final int KEYY = 12;
 	//Width from left side of box to text
-	private static final int FONTX = 14;
+	private static final int FONTX = 17;
 	//Height from bottom of screen to text
 	private static final int FONTY = 16;
 	//The filehandle for the key texture

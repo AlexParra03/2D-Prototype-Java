@@ -29,11 +29,11 @@ public class Key extends GameObject{
 	 * @param id The id of the key
 	 * @param display Whether the key is for display or for collecting
 	 */
-	public Key(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback, boolean inInventory) {
+	public Key(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
 		super(texture, width, height, x, y, level, collidable, callback);
 		this.id = ""+Key.globalId;
                 Key.globalId++;
-		this.inInventory = inInventory;
+		this.inInventory = false;
 	}
 	
 	/**
@@ -59,7 +59,10 @@ public class Key extends GameObject{
 			inInventory = true;
 			level.inventory.addKey(this);
 		}
-                callback.action(this.level);
+                if(callback != null){
+                    callback.action(this.level);
+                }
+                
 	}
 	
 	@Override

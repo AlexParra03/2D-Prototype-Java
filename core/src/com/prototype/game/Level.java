@@ -79,6 +79,8 @@ public class Level implements RenderableObject {
         this.objects.add(factory.create("door side", 400, 400));
         this.objects.add(factory.create("door up", 200, 400, function2));
         this.objects.add(factory.create("computer", 200, 200, function1));
+        this.objects.add(factory.create("key", 300, 200));
+        this.objects.add(factory.create("key", 500, 300));
         
 
     }

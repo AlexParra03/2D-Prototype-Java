@@ -59,6 +59,8 @@ public class FactoryObject {
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
+        }else if(objectType.equals("key")){
+            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, function);
         }else{
             return null;
         }
@@ -90,7 +92,7 @@ public class FactoryObject {
         }
         */
         
-                if(objectType.equals("door up")){
+        if(objectType.equals("door up")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("door side")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
@@ -106,6 +108,8 @@ public class FactoryObject {
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
+        }else if(objectType.equals("key")){
+            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, function);
         }else{
             return null;
         }
