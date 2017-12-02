@@ -44,9 +44,11 @@ public class FactoryObject {
         */
         
         if(objectType.equals("door up")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")), 40, 40, x, y, level, true, function);
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("door side")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
+        }else if(objectType.equals("computer")){
+            return new ComputerObject( new Texture(  Gdx.files.internal("gameObjects/object3.png")), new Texture(  Gdx.files.internal("gameObjects/object2.png")), new Texture(  Gdx.files.internal("gameObjects/object4.png")), 50, 50, x,y, level, true, function);
         }else if(objectType.equals("rock")){
             return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("box")){
@@ -88,10 +90,12 @@ public class FactoryObject {
         }
         */
         
-        if(objectType.equals("door up")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")), 40, 40, x, y, level, true, function);
+                if(objectType.equals("door up")){
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("door side")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
+        }else if(objectType.equals("computer")){
+            return new ComputerObject( new Texture(  Gdx.files.internal("gameObjects/object3.png")), new Texture(  Gdx.files.internal("gameObjects/object2.png")), new Texture(  Gdx.files.internal("gameObjects/object4.png")), 50, 50, x,y, level, true, function);
         }else if(objectType.equals("rock")){
             return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("box")){

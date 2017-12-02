@@ -16,6 +16,7 @@ public class GameObject implements RenderableObject{
     Callback callback;
     
     public GameObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback){
+  
         this.texture = texture;
         this.width = width;
         this.height = height;

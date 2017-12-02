@@ -35,6 +35,10 @@ public class Level implements RenderableObject {
                 for(GameObject object : this.objects){
                     object.dispose();
                 }
+                
+            }
+            if(this.map != null){
+                this.map.dispose();
             }
             
             switch(levelId){
@@ -59,8 +63,19 @@ public class Level implements RenderableObject {
             }
             
         };
-        this.objects.add(factory.create("door side", 400, 400, function1));
-        this.objects.add(factory.create("door up", 200, 400, function1));
+        
+        Callback function2 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.player.x = 40;
+               level.player.y = 30;
+            }
+            
+        };
+        this.objects.add(factory.create("door side", 400, 400));
+        this.objects.add(factory.create("door up", 200, 400, function2));
+        this.objects.add(factory.create("computer", 200, 200));
+        
 
     }
     
@@ -71,7 +86,9 @@ public class Level implements RenderableObject {
         
         this.map.render(batch);
         for(GameObject object : objects){
-            object.render(batch);
+            if(object != null){
+                object.render(batch);
+            }
         }
         this.player.render(batch);
         this.inventory.render(batch);
@@ -88,8 +105,6 @@ public class Level implements RenderableObject {
         this.inventory.dispose();
         this.dialog.dispose();
     }
-    
-    
     
     
 }

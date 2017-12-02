@@ -107,25 +107,25 @@ public class Player implements RenderableObject {
         // Check for object collision
         if(objects != null){
             for(GameObject object : objects){
-                //TODO implement collision
-                if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
-                    if((int)this.y > object.y && (int)this.y < object.y + object.height){
-                    	if(object.collidable) {
-                    		if(!this.colliding){
-                    			this.leftCollision = this.movingLeft;
-                    			this.rightCollision = this.movingRight;
-                    			this.upCollision = this.movingUp;
-                    			this.downCollision = this.movingDown;
-                    			object.action();
-                    			this.colliding = true;
-                    		}
-                    	} else {
-                    		object.action();
-                    		this.colliding = true;
-                    	}
+                if(object != null){
+                    if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
+                        if((int)this.y > object.y && (int)this.y < object.y + object.height){
+                            if(object.collidable) {
+                                    if(!this.colliding){
+                                            this.leftCollision = this.movingLeft;
+                                            this.rightCollision = this.movingRight;
+                                            this.upCollision = this.movingUp;
+                                            this.downCollision = this.movingDown;
+                                            object.action();
+                                            this.colliding = true;
+                                    }
+                            } else {
+                                    object.action();
+                                    this.colliding = true;
+                            }
+                        }
                     }
                 }
-                
 
             }
             
