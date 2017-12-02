@@ -61,7 +61,7 @@ public class Level implements RenderableObject {
         Callback function1 = new Callback(){
             @Override
             public void action(Level level) {
-               level.dialog.show("Hello");
+               level.input.show("Hello");
             }
             
         };
@@ -71,12 +71,14 @@ public class Level implements RenderableObject {
             public void action(Level level) {
                level.player.x = 40;
                level.player.y = 30;
+               level.dialog.show("Dialog");
             }
             
         };
+        
         this.objects.add(factory.create("door side", 400, 400));
         this.objects.add(factory.create("door up", 200, 400, function2));
-        this.objects.add(factory.create("computer", 200, 200));
+        this.objects.add(factory.create("computer", 200, 200, function1));
         
 
     }
@@ -95,6 +97,7 @@ public class Level implements RenderableObject {
         this.player.render(batch);
         this.inventory.render(batch);
         this.dialog.render(batch);
+        this.input.render(batch);
     }
 
     @Override
