@@ -18,7 +18,6 @@ public class Key extends GameObject{
 	
 	/**
 	 * Creates a key object
-	 * @param texture The texture for the key
 	 * @param width Width of the key texture
 	 * @param height Height of the key texture
 	 * @param x X position of the key
@@ -27,8 +26,8 @@ public class Key extends GameObject{
 	 * @param id The id of the key
 	 * @param display Whether the key is for display or for collecting
 	 */
-	public Key(Texture texture, int width, int height, int x, int y, Level level, String id, boolean collidable, boolean inInventory) {
-		super(texture, width, height, x, y, level, collidable);
+	public Key(int x, int y, Level level, String id, boolean inInventory) {
+		super(new Texture(Gdx.files.internal("gameObjects/key.png")), 32, 32, x, y, level, false);
 		this.id = id;
 		this.inInventory = inInventory;
 	}

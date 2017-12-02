@@ -62,6 +62,13 @@ public class Inventory implements RenderableObject{
 		keys.removeValue(key, true);
 	}
 	
+	/**
+	 * Removes all keys from the inventory
+	 */
+	public void reset() {
+		keys.clear();
+	}
+	
 	@Override
 	/**
 	 * Renders an inventory box for each key in the inventory

@@ -54,6 +54,11 @@ public class Dialog implements RenderableObject {
         }
     }
     
+    public void update(String newMessage) {
+    	this.close();
+    	show(newMessage);
+    }
+    
     public void close(){
         this.visible = false;
         this.textLines.clear();

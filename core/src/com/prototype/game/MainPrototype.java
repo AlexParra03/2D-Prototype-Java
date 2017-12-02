@@ -12,7 +12,6 @@ public class MainPrototype extends ApplicationAdapter {
     SpriteBatch batch;
     Level level;
     Hint hint;
-    TextInput input;
 
 
 

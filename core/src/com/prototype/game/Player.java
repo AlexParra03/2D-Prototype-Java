@@ -74,10 +74,15 @@ public class Player implements RenderableObject {
         animations.add(this.right);
         
         //Starting position
-        this.x = 300;
-        this.y = 300;
+        this.x = Gdx.graphics.getWidth()/2;
+        this.y = 30;
     }
 
+    public void setXY(int newX, int newY) {
+    	this.x = newX;
+    	this.y = newY;
+    }
+    
     // contains logic being called before rendering
     void update(){
         this.normalizedMovement();

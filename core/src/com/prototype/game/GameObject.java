@@ -24,6 +24,10 @@ public abstract class GameObject implements RenderableObject{
         this.collidable = collidable;
     }
     
+    public void changeTexture(Texture newTexture) {
+    	this.texture = newTexture;
+    }
+    
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y);

@@ -13,18 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class ComputerObject extends GameObject {
-	
-	private String puzzle;
 
-    public ComputerObject(int width, int height, int x, int y, Level level, boolean collidable, String puzzle, int answer) {
-        super(new Texture(Gdx.files.internal("gameObjects/object3.png")), width, height, x, y, level, collidable);
-        this.puzzle = puzzle;
+    public ComputerObject(int x, int y, Level level, boolean collidable) {
+        super(new Texture(Gdx.files.internal("gameObjects/computer1.png")), 50, 50, x, y, level, collidable);
     }
 
     @Override
     public void action() {
-    	Gdx.input.getTextInput(level.input, "TERMINAL INPUT", "", "Answer");
-        level.dialog.show(puzzle);
+    	level.dialog.show("PUZZLING PUZZLES AWAIT");
     }
     
 }

@@ -2,9 +2,11 @@
 package com.prototype.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 
 
 public class Level implements RenderableObject {
@@ -14,7 +16,7 @@ public class Level implements RenderableObject {
     Dialog dialog;
     Inventory inventory;
     Hint hints;
-    TextInput input;
+    private int curLevel;
     
     
     public Level(){
@@ -22,8 +24,6 @@ public class Level implements RenderableObject {
         this.dialog = new Dialog();
         this.inventory = new Inventory();
         this.hints = new Hint(dialog);
-        this.objects = new Array<GameObject>();
-        this.input = new TextInput(objects);
         this.selectLevel(1);
     }
     
@@ -36,17 +36,50 @@ public class Level implements RenderableObject {
     }
     
     private void buildLevelOne(){
-    	hints.setLevel(1);
-        this.map = new TileMap(30, 20);
-        int[] answers = new int[2];
-        answers[0] = 5;
-        answers[1] = 14;
-        objects.add( new ComputerObject(50, 50, 65, 400, this, true, "101", 5)  );
-        objects.add( new ComputerObject(50, 50, 39, 200, this, true, "1110", 14) );
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 420, 360, this, "01", false, false));
-        objects.add(new Key(new Texture(Inventory.KEY), 32, 32, 400, 350, this, "02", false, false));
+    	this.inventory.reset();
+    	this.curLevel = 1;
+    	hints.setLevel(curLevel);
+        this.map = new TileMap(30, 20, curLevel);
+        this.objects = new Array<GameObject>();
+        objects.add(new Door(300, 500, this, "01", false));
+        objects.add( new ComputerObject(65, 400, this, true) );
+        //objects.add( new ComputerObject(39, 200, this, true) );
+        objects.add(new Key(420, 360, this, "01", false));
+        objects.add(new Key(400, 350, this, "02", false));
+        objects.add(new TreeObject(0, 200, this));
+        objects.add(new CrateObject(45, 45, this));
+        objects.add(new RockObject(250, 125, this));
         this.player.setGameObjects(objects);
+        this.player.setXY(Gdx.graphics.getWidth()/2, 30);
 
+    }
+    
+    /**
+     * Return the current level
+     * @return The current level
+     */
+    public int getCurrentLevel() {
+    	return curLevel;
+    }
+    
+    /**
+     * Saves the current level to a JSON file to be loaded later
+     */
+    public void saveGame() {
+    	SaveData data = new SaveData(curLevel);
+    	Json jsonWriter = new Json();
+    	FileHandle writer = Gdx.files.local("SaveData/save.json");
+    	writer.writeString(jsonWriter.prettyPrint(data), false);
+    }
+    
+    /**
+     * Loads the last saved level from a local JSON file
+     */
+    public void loadGame() {
+    	FileHandle reader = Gdx.files.internal("SaveData/save.json");
+    	Json jsonReader = new Json();
+    	SaveData data = jsonReader.fromJson(SaveData.class ,reader.readString());
+    	selectLevel(data.getLevel());
     }
     
 
