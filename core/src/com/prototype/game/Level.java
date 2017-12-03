@@ -60,19 +60,32 @@ public class Level implements RenderableObject {
             // ---------------------------------
             Level.currentLevel = levelId;
             this.player.setGameObjects(this.objects);
+            this.saveGame();
         }
     }
     
     public void buildLevelOne(){
-        
         this.map = new TileMap(30, 20);
+        for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 9;
+        	}
+        }
         this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2;
+        this.player.y = 0;
+        
+        this.hints.setHint(1, "Binary-Decimal Conversion: To convert a binary number into decimal, you must add exponents of 2. "
+				+ "Call the right position 0 and increment that number by 1 for each position up to the beginning of the number. "
+				+ "For each position with a 1, calculate 2 raised to the power of that position number and add all of them together. "
+				+ "This number is the decimal representation of the binary number. "
+				+ "Ex: (1010) = 2^3 + 2^1 = 8 + 2 = 10");
         
         Callback function1 = new Callback(){
             @Override
             public void action(Level level) {
-               level.input.show("Hello");
-               level.loadGame();
+               level.input.show("Convert 10 to decimal");
+               level.dialog.show("If your answer is correct, then open the box to get a key.");
             }
             
         };
@@ -80,23 +93,23 @@ public class Level implements RenderableObject {
         Callback function2 = new Callback(){
             @Override
             public void action(Level level) {
-               level.player.x = 40;
-               level.player.y = 30;
-               level.dialog.show("Dialog");
+               if(level.input.text.equals("2")) {
+            	   level.objects.add(level.factory.create("key", 300, 300));
+            	   level.objects.removeIndex(2);
+               }
             }
             
         };
         
         this.objects.add(factory.createDoor("up", 400, 400, 2));
         this.objects.add(factory.create("computer", 200, 200, function1));
-        this.objects.add(factory.create("key", 300, 200));
-        this.objects.add(factory.create("key", 500, 300));
+        this.objects.add(factory.create("box", 300, 300, function2));
+        this.objects.add(factory.create("rock", 45, 15));
         
 
     }
     
     private void buildLevelTwo() {
-
         this.map = new TileMap(30, 20);
         this.objects = new Array<GameObject>();
         
@@ -144,7 +157,8 @@ public class Level implements RenderableObject {
     	FileHandle reader = Gdx.files.internal("SaveData/save.json");
     	Json jsonReader = new Json();
     	SaveData data = jsonReader.fromJson(SaveData.class ,reader.readString());
-    	selectLevel(data.getLevel() + 1);
+    	System.out.println("LOADING LEVEL " + data.getLevel());
+    	selectLevel(data.getLevel());
     }
     
 

@@ -17,7 +17,7 @@ public class InputScanner implements RenderableObject {
 
     BitmapFont font = new BitmapFont();
     ShapeRenderer boxes = new ShapeRenderer();
-    private String text;
+    protected String text;
     
     private final int X = 200;
     private final int Y = 300;

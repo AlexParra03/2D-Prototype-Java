@@ -86,7 +86,6 @@ public class MainPrototype extends ApplicationAdapter {
              if(Gdx.input.getX() >= (level.hints.X - level.hints.TOTAL_RADIUS) && Gdx.input.getX() <= (level.hints.X + level.hints.TOTAL_RADIUS)){
                  if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.hints.Y - level.hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.hints.Y + level.hints.TOTAL_RADIUS)){
                 	level.hints.show();
-                	level.saveGame();
                  }
              }
 
