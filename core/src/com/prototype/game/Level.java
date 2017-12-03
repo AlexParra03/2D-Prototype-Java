@@ -17,7 +17,7 @@ public class Level implements RenderableObject {
     InputScanner input;
     Inventory inventory;
     Key[] keys;
-    private static int currentLevel = -1;
+    protected static int currentLevel = -1;
     private FactoryObject factory;
     
     

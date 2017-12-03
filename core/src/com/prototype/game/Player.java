@@ -106,7 +106,8 @@ public class Player implements RenderableObject {
         
         // Check for object collision
         if(objects != null){
-            for(GameObject object : objects){
+            for(int i=0; i<objects.size; i++){
+                GameObject object = objects.get(i);
                 if(object != null){
                     if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
                         if((int)this.y > object.y && (int)this.y < object.y + object.height){

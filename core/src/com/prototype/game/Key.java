@@ -18,6 +18,8 @@ public class Key extends GameObject{
         //Auto increment for each key
         private static int globalId = 0;
         
+        protected int levelDestination = -1;
+        
         protected boolean used = false;
 	
 	/**
