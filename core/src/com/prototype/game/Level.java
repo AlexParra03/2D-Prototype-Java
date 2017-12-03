@@ -51,12 +51,110 @@ public class Level implements RenderableObject {
                 case 2:
                     buildLevelTwo();
                     break;
+                case 3:
+                    buildLevelThree();
+                    break;
+                case 4:
+                    buildLevelFour();
+                    break;
             }
             
             // ---------------------------------
             Level.currentLevel = levelId;
             this.player.setGameObjects(this.objects);
         }
+    }
+    
+    public void buildLevelFour(){
+        this.map = new TileMap(30,20);
+        this.objects = new Array<GameObject>();
+        
+        
+        Callback functionOne = new Callback(){
+            @Override
+            public void action(Level level) {
+                level.dialog.show("All the things");
+                
+            }
+            
+        };
+        
+        Callback functionTwo = new Callback(){
+            @Override
+            public void action(Level level) {
+                level.input.show("Convert 11 to Decimal");
+                level.dialog.show("When you are done check with the other computer");
+                
+            }
+            
+        };
+        
+        Callback functionThree = new Callback(){
+            @Override
+            public void action(Level level) {
+                String inputFromText = level.input.text;
+                if(inputFromText.equals("3")){
+                    level.objects.add( factory.create("key", 300, 130) );
+                }
+                
+            }
+            
+        };
+        
+        Callback teleport = new Callback(){
+            @Override
+            public void action(Level level) {
+                level.player.x = 0;
+                level.player.y = 300;
+                
+            }
+            
+        };
+        
+        objects.add( factory.create("rock", 45, 90)  );
+        
+        objects.add( factory.create("computer", 200, 90, functionTwo)  );
+        
+        objects.add( factory.create("computer", 300, 90, functionThree)  );
+        
+        objects.add( factory.create("barrel", 100, 90, functionOne)  );
+        
+        objects.add( factory.createDoor("up", 100, 300, teleport, 1 ) );
+    }
+    
+    public void buildLevelThree(){
+        this.map = new TileMap(30, 20);
+        this.map.map[5][5] = 3;
+        this.objects = new Array<GameObject>();
+        
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+                level.player.x = 400;
+                level.player.y = 400;
+                level.map.map[7][7] = 4;
+                level.input.show("Type the answer here?");
+            }
+        };
+        
+        Callback function2 = new Callback(){
+            @Override
+            public void action(Level level) {
+                String textFromInput = level.input.text;
+                if(textFromInput.equals("CAT")){
+                    level.objects.add( level.factory.create("key", 180, 120) );
+                }
+                level.selectLevel(4);
+            }
+        };
+        
+        objects.add( factory.create("computer", 30, 30, function1)  );
+        objects.add( factory.create("box", 100, 100, function2));
+        
+        
+        objects.add( factory.createDoor("up", 100, 160, 1) );
+        
     }
     
     public void buildLevelOne(){
@@ -82,7 +180,7 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.createDoor("up", 400, 400, 2));
+        this.objects.add(factory.createDoor("up", 400, 400, 3));
         this.objects.add(factory.create("computer", 200, 200, function1));
         this.objects.add(factory.create("key", 300, 200));
         this.objects.add(factory.create("key", 500, 300));
