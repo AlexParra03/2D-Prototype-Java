@@ -70,7 +70,11 @@ public class Inventory implements RenderableObject{
 		for(int i = 0; i < keys.size*44; i+= 44) {
 			box.setColor(Color.BLACK);
 			box.rect(i, 0, BOXWIDTH + 4, BOXHEIGHT + 4);
-			box.setColor(Color.GRAY);
+                        if(keys.get(i/44).used){
+                            box.setColor(Color.BROWN);
+                        }else{
+                            box.setColor(Color.GRAY);
+                        }
 			box.rect(i+2, 2, BOXWIDTH, BOXHEIGHT);
 		}
 		box.end();
@@ -78,7 +82,6 @@ public class Inventory implements RenderableObject{
 		//Draw keys and text
 		for(int i = 0; i < keys.size; i++) {
 			Key key = keys.get(i);
-			key.dispose();
 			batch.draw(new Texture(KEY), KEYX + (i*44), KEYY);
 			font.draw(batch, key.getID(), FONTX + (i*44), FONTY);
 			

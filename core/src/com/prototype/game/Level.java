@@ -43,12 +43,18 @@ public class Level implements RenderableObject {
                 this.map.dispose();
             }
             
+            // ADD LEVELS TO MAPING HERE --------------
             switch(levelId){
                 case 1:
                     buildLevelOne();
                     break;
+                case 2:
+                    buildLevelTwo();
+                    break;
             }
             
+            // ---------------------------------
+            Level.currentLevel = levelId;
             this.player.setGameObjects(this.objects);
         }
     }
@@ -76,13 +82,44 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.create("door side", 400, 400));
-        this.objects.add(factory.create("door up", 200, 400, function2));
+        this.objects.add(factory.createDoor("up", 400, 400, 2));
         this.objects.add(factory.create("computer", 200, 200, function1));
         this.objects.add(factory.create("key", 300, 200));
         this.objects.add(factory.create("key", 500, 300));
         
 
+    }
+    
+    private void buildLevelTwo() {
+
+        this.map = new TileMap(30, 20);
+        this.objects = new Array<GameObject>();
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.input.show("Hello");
+            }
+            
+        };
+        
+        Callback function2 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.player.x = 40;
+               level.player.y = 30;
+               level.dialog.show("Dialog");
+            }
+            
+        };
+        
+        this.objects.add(factory.createDoor("up", 500, 400, 1));
+        this.objects.add(factory.create("computer", 250, 200, function1));
+        this.objects.add(factory.create("key", 330, 200));
+        this.objects.add(factory.create("key", 500, 340));
+        this.map.map[5][5] = 3;
+        this.map.map[6][6] = 3;
+        
     }
     
     
@@ -112,6 +149,8 @@ public class Level implements RenderableObject {
         this.inventory.dispose();
         this.dialog.dispose();
     }
+
+
     
     
 }

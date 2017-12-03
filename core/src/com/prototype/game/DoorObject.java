@@ -8,16 +8,38 @@ package com.prototype.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-/**
- *
- * @author alexu
- */
+
+
 public class DoorObject extends GameObject{
 
-    public DoorObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
+    private int levelDestination;
+    private int keyIdBinded;
+    
+    public DoorObject(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback, int levelDestination) {
         super(texture, width, height, x, y, level, collidable, callback);
+        this.levelDestination = levelDestination;
+        this.keyIdBinded = -1;
     }
 
-   
+
+    @Override
+    public void action(){
+        if (callback != null){
+            callback.action(this.level);
+        }
+        if(keyIdBinded == -1){
+            if(level.inventory.keys != null){
+                for(Key key : level.inventory.keys ){
+                    if(!key.used){
+                        key.used = true;
+                        this.keyIdBinded = key.id;
+                        break;
+                    }
+                }
+            }
+        }else{
+            //level.selectLevel(levelDestination);
+        }
+    }
     
 }

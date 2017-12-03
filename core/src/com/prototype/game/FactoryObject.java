@@ -18,36 +18,29 @@ public class FactoryObject {
     }
     
     
-    public GameObject create(String objectType, int x, int y, Callback function){
-                /*
-        switch(objectType){
-            //case "key":
-                //new Key( new Texture(Gdx.files.internal("gameObjects/key.png")), 32, 32, 420, 360, level, "01", false, false, function)
-            case "door up":
-                return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")), 40, 40, x, y, level, true, function);
-            case "door side":
-                return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
-            case "rock":
-                return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
-            case "box":
-                return new BoxObject(new Texture(  Gdx.files.internal("gameObjects/object6.png")), 40, 40, x, y, level, true, function);
-            case "chest up":
-                return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object10.png")), 40, 40, x, y, level, true, function);    
-            case "chest down":
-                return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
-            case "barrel":
-                return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
-            default:
-                return null;
-                
+    public GameObject createDoor(String direction, int x, int y, Callback function, int levelDestination){
+        if(direction.equals("up")){
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function, levelDestination);
+        }else if(direction.equals("side")){
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function, levelDestination);
+        }else{
+            return null;
         }
-        */
+    }
+    
+    public GameObject createDoor(String direction, int x, int y, int levelDestination){
+        if(direction.equals("up")){
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, null, levelDestination);
+        }else if(direction.equals("side")){
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, null, levelDestination);
+        }else{
+            return null;
+        }
+    }
+    
+    public GameObject create(String objectType, int x, int y, Callback function){
         
-        if(objectType.equals("door up")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("door side")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("computer")){
+        if(objectType.equals("computer")){
             return new ComputerObject( new Texture(  Gdx.files.internal("gameObjects/object3.png")), new Texture(  Gdx.files.internal("gameObjects/object2.png")), new Texture(  Gdx.files.internal("gameObjects/object4.png")), 50, 50, x,y, level, true, function);
         }else if(objectType.equals("rock")){
             return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
@@ -68,35 +61,8 @@ public class FactoryObject {
     
     public GameObject create(String objectType, int x, int y){
         Callback function = null;
-        /*
-        switch(objectType){
-            //case "key":
-                //new Key( new Texture(Gdx.files.internal("gameObjects/key.png")), 32, 32, 420, 360, level, "01", false, false, function)
-            case "door up":
-                return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object3.png")), 40, 40, x, y, level, true, function);
-            case "door side":
-                return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
-            case "rock":
-                return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
-            case "box":
-                return new BoxObject(new Texture(  Gdx.files.internal("gameObjects/object6.png")), 40, 40, x, y, level, true, function);
-            case "chest up":
-                return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object10.png")), 40, 40, x, y, level, true, function);    
-            case "chest down":
-                return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
-            case "barrel":
-                return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
-            default:
-                return null;
-                
-        }
-        */
         
-        if(objectType.equals("door up")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("door side")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("computer")){
+        if(objectType.equals("computer")){
             return new ComputerObject( new Texture(  Gdx.files.internal("gameObjects/object3.png")), new Texture(  Gdx.files.internal("gameObjects/object2.png")), new Texture(  Gdx.files.internal("gameObjects/object4.png")), 50, 50, x,y, level, true, function);
         }else if(objectType.equals("rock")){
             return new RockObject(new Texture(  Gdx.files.internal("gameObjects/object5.png")), 40, 40, x, y, level, true, function);
