@@ -145,12 +145,12 @@ public class Level implements RenderableObject {
                 if(textFromInput.equals("CAT")){
                     level.objects.add( level.factory.create("key", 180, 120) );
                 }
-                level.selectLevel(4);
+                //level.selectLevel(4);
             }
         };
         
         objects.add( factory.create("computer", 30, 30, function1)  );
-        objects.add( factory.create("box", 100, 100, function2));
+        objects.add( factory.create("tree blue", 400, 100, function2));
         
         
         objects.add( factory.createDoor("up", 100, 160, 1) );

@@ -10,8 +10,5 @@ public class TreeObject extends GameObject {
         super(texture, width, height, x, y, level, collidable,  callback);
     }
 
-    @Override
-    public void action() {
-    }
     
 }
