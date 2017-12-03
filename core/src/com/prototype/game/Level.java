@@ -11,19 +11,35 @@ import com.badlogic.gdx.utils.Json;
 import java.util.ArrayList;
 
 
+/**
+ * Creates a new Level, essentially containg all data for each level, loading the levels, and saving/loading levels
+ * @author Group 3
+ *
+ */
 public class Level implements RenderableObject {
+	//The player
     Player player;
+    //The background
     TileMap map;
+    //The in-game objects
     Array<GameObject> objects;
+    //The dialog box
     Dialog dialog;
+    //The input box
     InputScanner input;
+    //The on-screen inventory
     Inventory inventory;
-    Key[] keys;
+    //The hints for each level
     Hint hints;
+    //The current level that the player is in
     protected static int currentLevel = -1;
+    //A factory to create game objects
     private FactoryObject factory;
     
     
+    /*
+     * Initializes all components and loads level 1
+     */
     public Level(){
         this.player = new Player();
         this.dialog = new Dialog();
@@ -35,6 +51,10 @@ public class Level implements RenderableObject {
         
     }
     
+    /**
+     * Builds the level that is given in the parameter
+     * @param levelId The level to load
+     */
     public void selectLevel(int levelId){
         if(Level.currentLevel != levelId){
             if(this.objects != null){
@@ -64,6 +84,9 @@ public class Level implements RenderableObject {
         }
     }
     
+    /**
+     * Constructs the first level
+     */
     public void buildLevelOne(){
         this.map = new TileMap(30, 20);
         for(int i = 0; i < this.map.map.length; i++) {
@@ -72,7 +95,7 @@ public class Level implements RenderableObject {
         	}
         }
         this.objects = new Array<GameObject>();
-        this.player.x = Gdx.graphics.getWidth()/2;
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
         this.player.y = 0;
         
         this.hints.setHint(1, "Binary-Decimal Conversion: To convert a binary number into decimal, you must add exponents of 2. "
@@ -80,6 +103,12 @@ public class Level implements RenderableObject {
 				+ "For each position with a 1, calculate 2 raised to the power of that position number and add all of them together. "
 				+ "This number is the decimal representation of the binary number. "
 				+ "Ex: (1010) = 2^3 + 2^1 = 8 + 2 = 10");
+        
+        this.dialog.show("Welcome to the maze! "
+        		+ "The way this works is quite simple, you must simply solve the puzzles in each room in order to escape. "
+        		+ "Solving each puzzle will give you a key. Use that key to open the door and continue into the maze. "
+        		+ "If you require help on figuring out how to solve the puzzles, a hint button is located in the top left corner. "
+        		+ "This first puzzle involves converting binary to decimal, so walk up to the computer to get started.");
         
         Callback function1 = new Callback(){
             @Override
@@ -101,11 +130,15 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.createDoor("up", 400, 400, 2));
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 2));
         this.objects.add(factory.create("computer", 200, 200, function1));
         this.objects.add(factory.create("box", 300, 300, function2));
         this.objects.add(factory.create("rock", 45, 15));
-        
+        this.objects.add(factory.create("tree green", 135, 450));
+        this.objects.add(factory.create("tree green", 450, 70));
+        this.objects.add(factory.create("tree green", 500, 400));
+        this.objects.add(factory.create("rock", 350, 200));
+        this.objects.add(factory.create("rock", 600, 300));
 
     }
     
@@ -157,12 +190,14 @@ public class Level implements RenderableObject {
     	FileHandle reader = Gdx.files.internal("SaveData/save.json");
     	Json jsonReader = new Json();
     	SaveData data = jsonReader.fromJson(SaveData.class ,reader.readString());
-    	System.out.println("LOADING LEVEL " + data.getLevel());
     	selectLevel(data.getLevel());
     }
     
 
     @Override
+    /**
+     * Renders each component onto the screen
+     */
     public void render(SpriteBatch batch) {
         
         this.map.render(batch);
@@ -179,6 +214,9 @@ public class Level implements RenderableObject {
     }
 
     @Override
+    /*
+     * Disposes of each component used by the level class when the game is closed or when the method is called upon
+     */
     public void dispose() {
         this.map.dispose();
         for(GameObject object : objects){

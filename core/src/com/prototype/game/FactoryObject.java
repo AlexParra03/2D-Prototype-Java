@@ -51,9 +51,11 @@ public class FactoryObject {
         }else if(objectType.equals("chest down")){
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
-            return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
+            return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 32, 32, x, y, level, true, function);
         }else if(objectType.equals("key")){
             return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 32, 32, x ,y, level, false, function);
+        }else if(objectType.equals("tree green")){
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 105, 115, x ,y, level, true, function);
         }else{
             return null;
         }
@@ -73,11 +75,13 @@ public class FactoryObject {
         }else if(objectType.equals("chest down")){
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
-            return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
+            return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 32, 32, x, y, level, true, function);
         }else if(objectType.equals("key")){
             return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 32, 32, x ,y, level, false, function);
-        }else{
-            return null;
+        }else if(objectType.equals("tree green")){
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 115, 115, x ,y, level, true, function);
+        } else {
+        	return null;
         }
         
     }
