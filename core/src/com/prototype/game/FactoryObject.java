@@ -11,10 +11,13 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class FactoryObject {
     
+    // Array containing flags to prevent spawning the same key several times
+    private boolean[] keysSpawned;
     private Level level;
     
     public FactoryObject(Level level){
         this.level = level;
+        this.keysSpawned = new boolean[20];
     }
     
     
@@ -38,6 +41,34 @@ public class FactoryObject {
         }
     }
     
+    public GameObject createKey(int x, int y, int keyId){
+        --keyId;
+        if(keyId < 0 || keyId >= this.keysSpawned.length){
+            return null;
+        }
+        
+        if(!this.keysSpawned[keyId]){
+            this.keysSpawned[keyId] = true;
+            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, null);
+        }else{
+            return null;
+        }    
+    }
+    
+    public GameObject createKey(int x, int y, Callback callback, int keyId){
+        --keyId;
+        if(keyId < 0 || keyId >= this.keysSpawned.length){
+            return null;
+        }
+        
+        if(!this.keysSpawned[keyId]){
+            this.keysSpawned[keyId] = true;
+            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, callback);
+        }else{
+            return null;
+        }
+    }
+    
     public GameObject create(String objectType, int x, int y, Callback function){
         
         if(objectType.equals("computer")){
@@ -52,8 +83,6 @@ public class FactoryObject {
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("key")){
-            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, function);
         }else if(objectType.equals("tree blue")){
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 30, 50, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){
@@ -78,8 +107,6 @@ public class FactoryObject {
             return new ChestObject(new Texture(  Gdx.files.internal("gameObjects/object9.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
-        }else if(objectType.equals("key")){
-            return new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, x ,y, level, false, function);
         }else if(objectType.equals("tree blue")){
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 30, 50, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){

@@ -24,7 +24,7 @@ public class Level implements RenderableObject {
     public Level(){
         this.player = new Player();
         this.dialog = new Dialog();
-        this.input = new InputScanner();
+        this.input = new InputScanner(this);
         this.inventory = new Inventory();
         this.factory = new FactoryObject(this);
         this.selectLevel(1);
@@ -35,7 +35,9 @@ public class Level implements RenderableObject {
         if(Level.currentLevel != levelId){
             if(this.objects != null){
                 for(GameObject object : this.objects){
-                    object.dispose();
+                    if(object != null){
+                        object.dispose();
+                    }
                 }
                 
             }
@@ -79,11 +81,26 @@ public class Level implements RenderableObject {
             
         };
         
+
+        
         Callback functionTwo = new Callback(){
             @Override
             public void action(Level level) {
-                level.input.show("Convert 11 to Decimal");
-                level.dialog.show("When you are done check with the other computer");
+                
+                
+            Callback functionThree = new Callback(){
+                @Override
+                public void action(Level level) {
+                    String inputFromText = level.input.text;
+                    if(inputFromText.equals("3")){
+                        level.objects.add( factory.createKey(300, 130, 1) );
+                    }
+
+                }
+            
+        };
+                
+                level.input.show("Convert 11 to Decimal", functionThree);
                 
             }
             
@@ -94,7 +111,7 @@ public class Level implements RenderableObject {
             public void action(Level level) {
                 String inputFromText = level.input.text;
                 if(inputFromText.equals("3")){
-                    level.objects.add( factory.create("key", 300, 130) );
+                    level.objects.add( factory.createKey(300, 130, 1) );
                 }
                 
             }
@@ -110,6 +127,8 @@ public class Level implements RenderableObject {
             }
             
         };
+        
+        objects.add(null);
         
         objects.add( factory.create("rock", 45, 90)  );
         
@@ -143,7 +162,7 @@ public class Level implements RenderableObject {
             public void action(Level level) {
                 String textFromInput = level.input.text;
                 if(textFromInput.equals("CAT")){
-                    level.objects.add( level.factory.create("key", 180, 120) );
+                    level.objects.add( level.factory.createKey( 180, 120, 2) );
                 }
                 //level.selectLevel(4);
             }
@@ -180,10 +199,10 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.createDoor("up", 400, 400, 3));
+        this.objects.add(factory.createDoor("up", 400, 400, 4));
         this.objects.add(factory.create("computer", 200, 200, function1));
-        this.objects.add(factory.create("key", 300, 200));
-        this.objects.add(factory.create("key", 500, 300));
+        this.objects.add(factory.createKey( 300, 200, 3));
+        this.objects.add(factory.createKey(500, 300, 4));
         
 
     }
@@ -213,8 +232,8 @@ public class Level implements RenderableObject {
         
         this.objects.add(factory.createDoor("up", 500, 400, 1));
         this.objects.add(factory.create("computer", 250, 200, function1));
-        this.objects.add(factory.create("key", 330, 200));
-        this.objects.add(factory.create("key", 500, 340));
+        this.objects.add(factory.createKey( 330, 200, 5));
+        this.objects.add(factory.createKey( 500, 340,6));
         this.map.map[5][5] = 3;
         this.map.map[6][6] = 3;
         

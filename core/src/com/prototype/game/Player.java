@@ -133,11 +133,13 @@ public class Player implements RenderableObject {
             if(this.colliding){ // Checking collision with all objects
                 boolean stillColliding = false;
                 for(GameObject object : objects){
-                    // If player is colliding with object
-                     if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
-                         stillColliding = true;
-                         break;
-                     }
+                    if(object != null){
+                        // If player is colliding with object
+                         if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
+                             stillColliding = true;
+                             break;
+                         }
+                    }
                 }
                 
 

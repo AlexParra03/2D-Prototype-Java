@@ -24,23 +24,42 @@ public class InputScanner implements RenderableObject {
     private final int WIDTH = 400;
     private final int HEIGHT = 70;
 
+    private Level level;
+    private Callback callback;
     private String message;
     public boolean visible;
     
-    InputScanner(){
+    InputScanner(Level level){
         this.text = "";
         this.message = "";
         this.visible = false;
         font.setColor(0,0,0,1);
+        this.level = level;
     }
     
     public void show(String msg){
-        this.message = msg;
-        this.visible = true;
+        if(!this.visible){
+            this.text = "";
+            this.message = msg;
+            this.visible = true;
+        }
+    }
+    
+    public void show(String msg, Callback callback){
+        if(!this.visible){
+            this.text = "";
+            this.message = msg;
+            this.visible = true;
+            this.callback = callback;
+        }
     }
     
     public void close(){
         visible = false;
+        if(this.callback != null){
+            callback.action(level);
+            this.callback = null;
+        }
     }
     
     public void addCharacter(char c){

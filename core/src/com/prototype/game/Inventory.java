@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Array;
  *
  */
 public class Inventory implements RenderableObject{
-
+    
 	//The container to hold the keys
 	Array<Key> keys;
 	//Creates the boxes for the inventory display
@@ -29,7 +29,7 @@ public class Inventory implements RenderableObject{
 	//Width from each left box edge to key texture 
 	private static final int KEYX = 6;
 	//Height from bottom of the screen to the key texture
-	private static final int KEYY = 12;
+	private static final int KEYY = 6;
 	//Width from left side of box to text
 	private static final int FONTX = 17;
 	//Height from bottom of screen to text
@@ -44,6 +44,7 @@ public class Inventory implements RenderableObject{
 		keys = new Array<Key>();
 		font = new BitmapFont();
 		box = new ShapeRenderer();
+                
 	}
 	
 	/**
@@ -83,7 +84,6 @@ public class Inventory implements RenderableObject{
 		for(int i = 0; i < keys.size; i++) {
 			Key key = keys.get(i);
 			batch.draw(new Texture(KEY), KEYX + (i*44), KEYY);
-			font.draw(batch, key.getID(), FONTX + (i*44), FONTY);
 			
 		}
 		
