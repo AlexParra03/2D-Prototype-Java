@@ -81,6 +81,17 @@ public class MainPrototype extends ApplicationAdapter {
 
          }
          
+         //Input processing for hint button
+         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+             if(Gdx.input.getX() >= (level.hints.X - level.hints.TOTAL_RADIUS) && Gdx.input.getX() <= (level.hints.X + level.hints.TOTAL_RADIUS)){
+                 if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.hints.Y - level.hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.hints.Y + level.hints.TOTAL_RADIUS)){
+                	level.hints.show();
+                	level.saveGame();
+                 }
+             }
+
+          }
+         
         
         if(level.input.visible){
             mapKeys();

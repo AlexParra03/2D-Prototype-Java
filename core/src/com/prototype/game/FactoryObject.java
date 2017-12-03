@@ -30,9 +30,9 @@ public class FactoryObject {
     
     public GameObject createDoor(String direction, int x, int y, int levelDestination){
         if(direction.equals("up")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 40, 40, x, y, level, true, null, levelDestination);
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 64, 64, x, y, level, true, null, levelDestination);
         }else if(direction.equals("side")){
-            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 40, x, y, level, true, null, levelDestination);
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 20, 64, x, y, level, true, null, levelDestination);
         }else{
             return null;
         }

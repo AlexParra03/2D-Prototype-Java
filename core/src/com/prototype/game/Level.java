@@ -2,9 +2,11 @@
 package com.prototype.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class Level implements RenderableObject {
     InputScanner input;
     Inventory inventory;
     Key[] keys;
+    Hint hints;
     protected static int currentLevel = -1;
     private FactoryObject factory;
     
@@ -26,6 +29,7 @@ public class Level implements RenderableObject {
         this.dialog = new Dialog();
         this.input = new InputScanner();
         this.inventory = new Inventory();
+        this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
         this.selectLevel(1);
         
@@ -68,6 +72,7 @@ public class Level implements RenderableObject {
             @Override
             public void action(Level level) {
                level.input.show("Hello");
+               level.loadGame();
             }
             
         };
@@ -122,6 +127,25 @@ public class Level implements RenderableObject {
         
     }
     
+    /**
+     * Saves the current level to a JSON file to be loaded later
+     */
+    public void saveGame() {
+    	SaveData data = new SaveData(currentLevel);
+    	Json jsonWriter = new Json();
+    	FileHandle writer = Gdx.files.local("SaveData/save.json");
+    	writer.writeString(jsonWriter.prettyPrint(data), false);
+    }
+    
+    /**
+     * Loads the last saved level from a local JSON file
+     */
+    public void loadGame() {
+    	FileHandle reader = Gdx.files.internal("SaveData/save.json");
+    	Json jsonReader = new Json();
+    	SaveData data = jsonReader.fromJson(SaveData.class ,reader.readString());
+    	selectLevel(data.getLevel() + 1);
+    }
     
 
     @Override
@@ -136,6 +160,7 @@ public class Level implements RenderableObject {
         this.player.render(batch);
         this.inventory.render(batch);
         this.dialog.render(batch);
+        this.hints.render(batch);
         this.input.render(batch);
     }
 
