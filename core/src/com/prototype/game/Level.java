@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 /**
- * Creates a new Level, essentially containg all data for each level, loading the levels, and saving/loading levels
+ * Creates a new Level, essentially containing all data for each level, loading the levels, and saving/loading levels
  * @author Group 3
  *
  */
@@ -47,7 +47,7 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.selectLevel(1);
+        this.selectLevel(2);
         
     }
     
@@ -104,11 +104,7 @@ public class Level implements RenderableObject {
         this.player.x = Gdx.graphics.getWidth()/2 - 16;
         this.player.y = 0;
         
-        this.hints.setHint(1, "Binary-Decimal Conversion: To convert a binary number into decimal, you must add exponents of 2. "
-				+ "Call the right position 0 and increment that number by 1 for each position up to the beginning of the number. "
-				+ "For each position with a 1, calculate 2 raised to the power of that position number and add all of them together. "
-				+ "This number is the decimal representation of the binary number. "
-				+ "Ex: (1010) = 2^3 + 2^1 = 8 + 2 = 10");
+        this.hints.setType("number conversion");
         
         this.dialog.show("Welcome to the maze! "
         		+ "The way this works is quite simple, you must simply solve the puzzles in each room in order to escape. "
@@ -148,34 +144,64 @@ public class Level implements RenderableObject {
 
     }
     
+    /**
+     * Constructs the second level
+     */
     private void buildLevelTwo() {
         this.map = new TileMap(30, 20);
         this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 -16;
+        this.player.y = 0;
         
-        Callback function1 = new Callback(){
+        this.hints.setType("number conversion");
+        
+        Callback computer = new Callback(){
             @Override
             public void action(Level level) {
-               level.input.show("Hello");
+               level.input.show("Convert 1101 to Decimal");
+               level.dialog.show("Walk up to the rock with the index of your answer for a reward. (Index starting at 0)");
             }
             
         };
         
-        Callback function2 = new Callback(){
+        Callback rock = new Callback(){
             @Override
             public void action(Level level) {
-               level.player.x = 40;
-               level.player.y = 30;
-               level.dialog.show("Dialog");
+            	if(level.input.text.equals("13")) {
+                	level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 2));
+                	level.dialog.close();
+                	level.dialog.show("Before you sits two paths, one to the left and one to the right. "
+                			+ "One path will continue on the trials of boolean number conversion while the other will "
+                			+ "set you on the path of boolean algebra. "
+                			+ "Choose wisely and be prepared for what is to come.");
+            	}
             }
             
         };
         
-        this.objects.add(factory.createDoor("up", 500, 400, 1));
-        this.objects.add(factory.create("computer", 250, 200, function1));
-        this.objects.add(factory.createKey( 330, 200, 5));
-        this.objects.add(factory.createKey( 500, 340,6));
-        this.map.map[5][5] = 3;
-        this.map.map[6][6] = 3;
+        Callback rock2 = new Callback(){
+            @Override
+            public void action(Level level) {
+            	level.dialog.close();
+            	level.dialog.show("Wrong rock!");
+            }
+            
+        };
+        
+        //TODO Change these doors to go to level 3 and 4
+        this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 1));
+        this.objects.add(factory.createDoor("side", Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight()/2, 1));
+        this.objects.add(factory.create("computer", 500, 100, computer));
+        int rockX = 30;
+        int rockY = 500;
+        for(int i = 0; i < 25; i++) {
+        	if(i == 13) {
+        		this.objects.add(factory.create("rock", rockX, rockY, rock));
+        	} else {
+        		this.objects.add(factory.create("rock", rockX, rockY, rock2));
+        	}
+        	rockX += 30;
+        }
         
     }
     
@@ -191,7 +217,7 @@ public class Level implements RenderableObject {
     	SaveData data = new SaveData(currentLevel, player.x, player.y, keys, factory.keysSpawned);
     	Json jsonWriter = new Json();
     	FileHandle file = Gdx.files.local("data/data.json");
-    	file.writeString(jsonWriter.prettyPrint(data), false);
+    	file.writeString(jsonWriter.toJson(data), false);
     }
     
     /**
