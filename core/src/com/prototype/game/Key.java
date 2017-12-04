@@ -15,9 +15,7 @@ public class Key extends GameObject{
 	protected int id;
 	//Whether the key is an actual game object or for display only (for inventory)
 	private boolean inInventory;
-        //Auto increment for each key
-        private static int globalId = 0;
-        
+        // Level destination binded (non-negative if any)
         protected int levelDestination = -1;
         
         protected boolean used = false;
@@ -35,8 +33,6 @@ public class Key extends GameObject{
 	 */
 	public Key(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
 		super(texture, width, height, x, y, level, collidable, callback);
-		this.id = Key.globalId;
-                Key.globalId++;
 		this.inInventory = false;
 	}
 	
@@ -62,6 +58,7 @@ public class Key extends GameObject{
             if(!inInventory) {
                     inInventory = true;
                     level.inventory.addKey(this);
+
             }
             if(callback != null){
                 callback.action(this.level);
