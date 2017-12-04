@@ -129,8 +129,7 @@ public class Level implements RenderableObject {
             @Override
             public void action(Level level) {
                if(level.input.text.equals("2")) {
-            	   level.objects.add(level.factory.createKey( 300, 300, 1));
-            	   level.objects.removeIndex(2);
+            	   level.objects.add(level.factory.createKey( 390, 300, 1));
                }
             }
             
@@ -184,10 +183,15 @@ public class Level implements RenderableObject {
      * Saves the current level to a JSON file to be loaded later
      */
     public void saveGame() {
-    	SaveData data = new SaveData(currentLevel);
+        int[] keys = new int[inventory.keys.size];
+        for(int i=0; i<keys.length; i++){
+            keys[i] = inventory.keys.get(i).levelDestination;
+        }
+        
+    	SaveData data = new SaveData(currentLevel, player.x, player.y, keys);
     	Json jsonWriter = new Json();
-    	FileHandle writer = Gdx.files.local("SaveData/save.json");
-    	writer.writeString(jsonWriter.prettyPrint(data), false);
+    	FileHandle file = Gdx.files.local("data/data.json");
+    	file.writeString(jsonWriter.prettyPrint(data), false);
     }
     
     /**
