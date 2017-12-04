@@ -15,7 +15,7 @@ public class Key extends GameObject{
 	protected int id;
 	//Whether the key is an actual game object or for display only (for inventory)
 	private boolean inInventory;
-        
+        // Level destination binded (non-negative if any)
         protected int levelDestination = -1;
         
         protected boolean used = false;

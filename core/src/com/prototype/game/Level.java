@@ -188,7 +188,7 @@ public class Level implements RenderableObject {
             keys[i] = inventory.keys.get(i).levelDestination;
         }
         
-    	SaveData data = new SaveData(currentLevel, player.x, player.y, keys);
+    	SaveData data = new SaveData(currentLevel, player.x, player.y, keys, factory.keysSpawned);
     	Json jsonWriter = new Json();
     	FileHandle file = Gdx.files.local("data/data.json");
     	file.writeString(jsonWriter.prettyPrint(data), false);
@@ -198,10 +198,20 @@ public class Level implements RenderableObject {
      * Loads the last saved level from a local JSON file
      */
     public void loadGame() {
-    	FileHandle reader = Gdx.files.internal("SaveData/save.json");
+    	FileHandle reader = Gdx.files.internal("data/data.json");
     	Json jsonReader = new Json();
     	SaveData data = jsonReader.fromJson(SaveData.class ,reader.readString());
     	selectLevel(data.getLevel());
+        player.x = data.getX();
+        player.y = data.getY();
+        factory.keysSpawned = data.getKeysSpawned();
+        int[] keys = data.getKeys();
+        for(int i=0; i<keys.length; i++){
+            Key key = new Key(new Texture(  Gdx.files.internal("gameObjects/key.png")), 20, 20, 0 ,0, this, false, null);
+            key.action();
+            key.levelDestination = keys[i];
+            key.used = keys[i] != -1;
+        }
     }
     
 

@@ -12,14 +12,28 @@ import com.badlogic.gdx.graphics.Texture;
 public class FactoryObject {
     
     // Array containing flags to prevent spawning the same key several times
-    private boolean[] keysSpawned;
+    protected boolean[] keysSpawned;
+    // Reference to the level to contruct objects
     private Level level;
     
+    /**
+     * Initialize components
+     * @param level Level to be used when constructing objects
+     */
     public FactoryObject(Level level){
         this.level = level;
         this.keysSpawned = new boolean[20];
     }
     
+    /**
+     * Creates a door to travel to a new level of the maze
+     * @param direction pick texture of the directions of the door
+     * @param x x position of the object
+     * @param y y position of the object
+     * @param function callback to be called when colliding
+     * @param levelDestination level destination
+     * @return Instance of a new door object
+     */
     
     public GameObject createDoor(String direction, int x, int y, Callback function, int levelDestination){
         if(direction.equals("up")){
@@ -31,6 +45,14 @@ public class FactoryObject {
         }
     }
     
+        /**
+     * Creates a door to travel to a new level of the maze
+     * @param direction pick texture of the directions of the door
+     * @param x x position of the object
+     * @param y y position of the object
+     * @param levelDestination level destination
+     * @return Instance of a new door object
+     */
     public GameObject createDoor(String direction, int x, int y, int levelDestination){
         if(direction.equals("up")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 64, 64, x, y, level, true, null, levelDestination);
@@ -41,6 +63,13 @@ public class FactoryObject {
         }
     }
     
+    /**
+     * Creates a key
+     * @param x x position of the key  
+     * @param y y position of the key
+     * @param keyId Unique Id of the key to prevent from spawning more than once
+     * @return key object
+     */
     public GameObject createKey(int x, int y, int keyId){
         --keyId;
         if(keyId < 0 || keyId >= this.keysSpawned.length){
@@ -55,6 +84,14 @@ public class FactoryObject {
         }    
     }
     
+        /**
+     * Creates a key
+     * @param x x position of the key  
+     * @param y y position of the key
+     * @param callback function to be executed when colliding
+     * @param keyId Unique Id of the key to prevent from spawning more than once
+     * @return key object
+     */
     public GameObject createKey(int x, int y, Callback callback, int keyId){
         --keyId;
         if(keyId < 0 || keyId >= this.keysSpawned.length){
@@ -69,6 +106,14 @@ public class FactoryObject {
         }
     }
     
+    /**
+     * Creates a variety of game objects
+     * @param objectType type of object to be selected
+     * @param x x position of the object
+     * @param y y position of the object
+     * @param function callback to be executed
+     * @return the chosen object
+     */
     public GameObject create(String objectType, int x, int y, Callback function){
         
         if(objectType.equals("computer")){
@@ -92,6 +137,13 @@ public class FactoryObject {
         }
     }
     
+        /**
+     * Creates a variety of game objects
+     * @param objectType type of object to be selected
+     * @param x x position of the object
+     * @param y y position of the object
+     * @return the chosen object
+     */
     public GameObject create(String objectType, int x, int y){
         Callback function = null;
         

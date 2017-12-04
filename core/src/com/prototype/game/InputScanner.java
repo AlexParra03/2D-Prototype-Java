@@ -15,20 +15,31 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class InputScanner implements RenderableObject {
 
+    // Batches used to render
     BitmapFont font = new BitmapFont();
     ShapeRenderer boxes = new ShapeRenderer();
+    // Input text
     protected String text;
     
+    // Coordinates of the input box
     private final int X = 200;
     private final int Y = 300;
     private final int WIDTH = 400;
     private final int HEIGHT = 70;
 
+    // Reference to the level for callback purposes
     private Level level;
+    // Function to be executed when closed
     private Callback callback;
+    // Message being shown when opened
     private String message;
+    
     public boolean visible;
     
+    /**
+     * Initializes fields
+     * @param level reference to the level for callback purposes
+     */
     InputScanner(Level level){
         this.text = "";
         this.message = "";
@@ -37,6 +48,10 @@ public class InputScanner implements RenderableObject {
         this.level = level;
     }
     
+    /**
+     * Creates an input box reading input and showing the message
+     * @param msg message to be shown
+     */
     public void show(String msg){
         if(!this.visible){
             this.text = "";
@@ -45,6 +60,11 @@ public class InputScanner implements RenderableObject {
         }
     }
     
+    /**
+     * Creates a input box reading input and showing message
+     * @param msg message to be shown
+     * @param callback function to be executed when closed
+     */
     public void show(String msg, Callback callback){
         if(!this.visible){
             this.text = "";
@@ -54,6 +74,9 @@ public class InputScanner implements RenderableObject {
         }
     }
     
+    /**
+     * Closes the dialog box and executes callback
+     */
     public void close(){
         visible = false;
         if(this.callback != null){
@@ -62,6 +85,10 @@ public class InputScanner implements RenderableObject {
         }
     }
     
+    /**
+     * Adds one letter/character to the input text
+     * @param c character to be added
+     */
     public void addCharacter(char c){
         if(this.text.length() < 35){
             this.text += c;
@@ -95,6 +122,9 @@ public class InputScanner implements RenderableObject {
         font.dispose();
     }
 
+    /**
+     * removes last character from input text
+     */
     void backspace() {
         if(this.text.length() > 0){
             this.text = this.text.substring(0, text.length()-1);

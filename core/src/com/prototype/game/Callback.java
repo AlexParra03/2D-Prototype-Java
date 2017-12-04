@@ -6,5 +6,9 @@
 package com.prototype.game;
 
 public interface Callback {
+    /**
+     * function to execute
+     * @param level reference to global level to access other instances
+     */
     void action(Level level);
 }

@@ -1,6 +1,28 @@
 {
 levelID: 2
-xPos: 387.9167388793144
-yPos: 537.2447327281736
-keys: [ 2 ]
+xPos: 416.28427124746213
+yPos: 537.2203461105337
+keys: [ 2, 1, -1 ]
+keysSpawned: [
+	true
+	false
+	false
+	false
+	true
+	true
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+	false
+]
 }
