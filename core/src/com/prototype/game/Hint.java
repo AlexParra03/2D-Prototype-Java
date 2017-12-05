@@ -46,6 +46,9 @@ public class Hint implements RenderableObject {
 				+ "For each position with a 1, calculate 2 raised to the power of that position number and add all of them together. "
 				+ "This number is the decimal representation of the binary number. "
 				+ "Ex: (1010) = 2^3 + 2^1 = 8 + 2 = 10");
+		hints.add("Simple Boolean Algebra: When working with boolean values, you only have the digits 0 and 1. "
+				+ "Some properties that occur in decimal mathematics is similar to what occurs in boolean algebra. "
+				+ "ADDING: {0+1=1, 1+0=1, 0+0=0, 1+1=1} MULTIPLICATION: {0*1=0, 1*0=0, 0*0=0, 1+1=1}");
 	}
 	
 	/**
@@ -72,7 +75,7 @@ public class Hint implements RenderableObject {
 	public String getHint() {
 		if(type.equals("number conversion")) {
 			return hints.get(0);
-		} else if(type.equals("boolean algebra")) {
+		} else if(type.equals("simple boolean algebra")) {
 			return hints.get(1);
 		} else {
 			return "";

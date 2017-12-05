@@ -47,7 +47,7 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.selectLevel(2);
+        this.selectLevel(3);
         
     }
     
@@ -77,13 +77,15 @@ public class Level implements RenderableObject {
                 case 2:
                     buildLevelTwo();
                     break;
-       
+                case 3:
+                	buildLevelThree();
+                	break;
             }
             
             // ---------------------------------
             Level.currentLevel = levelId;
             this.player.setGameObjects(this.objects);
-            this.saveGame();
+            //this.saveGame();
         }
     }
     
@@ -115,18 +117,21 @@ public class Level implements RenderableObject {
         Callback function1 = new Callback(){
             @Override
             public void action(Level level) {
-               level.input.show("Convert 10 to decimal");
-               level.dialog.show("If your answer is correct, then open the box to get a key.");
-            }
-            
-        };
-        
-        Callback function2 = new Callback(){
-            @Override
-            public void action(Level level) {
-               if(level.input.text.equals("2")) {
-            	   level.objects.add(level.factory.createKey( 390, 300, 1));
-               }
+               level.input.show("Convert (10) to decimal", new Callback() {
+
+				@Override
+				public void action(Level level) {
+					if(level.input.text.equals("2")) {
+						level.objects.get(2).dispose();
+						level.objects.removeIndex(2);
+						level.objects.add(level.factory.createKey(300, 300, 1));
+						level.dialog.close();
+						level.dialog.show("The key has appeared! Grab it and unlock the door then walk through.");
+					}
+				}
+            	   
+               });
+               level.dialog.show("If your answer is correct, then the box will open to reveal a key.");
             }
             
         };
@@ -134,7 +139,7 @@ public class Level implements RenderableObject {
 
         this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 2));
         this.objects.add(factory.create("computer", 200, 200, function1));
-        this.objects.add(factory.create("box", 300, 300, function2));
+        this.objects.add(factory.create("box", 300, 300));
         this.objects.add(factory.create("rock", 45, 15));
         this.objects.add(factory.create("tree green", 135, 450));
         this.objects.add(factory.create("tree green", 450, 70));
@@ -158,7 +163,7 @@ public class Level implements RenderableObject {
         Callback computer = new Callback(){
             @Override
             public void action(Level level) {
-               level.input.show("Convert 1101 to Decimal");
+               level.input.show("Convert (1101) to Decimal");
                level.dialog.show("Walk up to the rock with the index of your answer for a reward. (Index starting at 0)");
             }
             
@@ -170,8 +175,8 @@ public class Level implements RenderableObject {
             	if(level.input.text.equals("13")) {
                 	level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 2));
                 	level.dialog.close();
-                	level.dialog.show("Before you sits two paths, one to the left and one to the right. "
-                			+ "One path will continue on the trials of boolean number conversion while the other will "
+                	level.dialog.show("Before you lies two paths, one to the left and one to the right. "
+                			+ "The right path will continue on the trials of boolean number conversion while the left will "
                 			+ "set you on the path of boolean algebra. "
                 			+ "Choose wisely and be prepared for what is to come.");
             	}
@@ -189,7 +194,7 @@ public class Level implements RenderableObject {
         };
         
         //TODO Change these doors to go to level 3 and 4
-        this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 1));
+        this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 3));
         this.objects.add(factory.createDoor("side", Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight()/2, 1));
         this.objects.add(factory.create("computer", 500, 100, computer));
         int rockX = 30;
@@ -203,6 +208,74 @@ public class Level implements RenderableObject {
         	rockX += 30;
         }
         
+    }
+    
+    /**
+     * Constructs the third level
+     */
+    private void buildLevelThree() {
+    	this.map = new TileMap(30, 20);
+    	for(int i = 0; i < this.map.map.length; i++) {
+    		for(int j = 0; j < this.map.map[0].length; j++) {
+    			this.map.map[i][j] = 18;
+    		}
+    	}
+    	this.objects = new Array<GameObject>();
+    	this.player.x = Gdx.graphics.getWidth()-16;
+    	this.player.y = Gdx.graphics.getHeight()/2 - 16;
+    	
+    	this.hints.setType("simple boolean algebra");
+    	
+    	Callback computer1 = new Callback() {
+
+			@Override
+			public void action(Level level) {
+				level.input.show("What is the value of (1+1)*(0+1)?", new Callback() {
+
+					@Override
+					public void action(Level level) {
+						if(level.input.text.equals("1")) {
+							level.objects.add(level.factory.create("computer", 700, 500, new Callback() {
+
+								@Override
+								public void action(Level level) {
+									level.input.show("What is the value of (1+0)*(0*(1+1))+0?", new Callback() {
+
+										@Override
+										public void action(Level level) {
+											if(level.input.text.equals("0")) {
+												level.objects.add(level.factory.create("tree blue", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
+
+													@Override
+													public void action(Level level) {
+														level.dialog.show("You touch the tree and it dissapears, leaving a key.");
+														level.objects.removeIndex(3);
+														level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 4));
+														
+													}
+													
+												}));
+											}
+											
+										}
+										
+									});
+									
+								}
+								
+							}));
+						}
+					}
+					
+				});
+				
+			}
+    		
+    	};
+    	
+    	this.objects.add(this.factory.create("computer", 50, 500, computer1));
+    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 5));
+    	
     }
     
     /**
