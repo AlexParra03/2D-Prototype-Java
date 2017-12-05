@@ -58,6 +58,7 @@ public class Key extends GameObject{
             if(!inInventory) {
                     inInventory = true;
                     level.inventory.addKey(this);
+                    level.saveGame();
 
             }
             if(callback != null){

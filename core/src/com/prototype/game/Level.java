@@ -49,6 +49,7 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
+        this.loadGame();
         this.selectLevel(0);
         
     }
