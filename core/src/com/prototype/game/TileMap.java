@@ -42,6 +42,25 @@ public class TileMap implements RenderableObject {
         }
     }
     
+    public TileMap(int texture){
+        int height = 20;
+        int width = 30;
+        this.map = new int[height][width];
+        this.tileTextures = new ArrayList<Texture>();
+        
+        //Fill the array with numbers for now
+        for(int i=0; i<this.map.length; i++ ){
+            for(int j=0; j<this.map[0].length; j++){
+                this.map[i][j] = texture;
+            }
+        }
+           
+        // Adding textures
+        for(int i=0; i<= 18; i++){
+            tileTextures.add(  new Texture(  Gdx.files.internal("tiles/tile" + i + ".png") )   );
+        }
+    }
+    
     /**
      * Change one tile
      * @param row row selected

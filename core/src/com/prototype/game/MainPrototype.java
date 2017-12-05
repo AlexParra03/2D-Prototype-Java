@@ -3,6 +3,7 @@ package com.prototype.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -45,6 +46,11 @@ public class MainPrototype extends ApplicationAdapter {
     
     void handleInput(){
 
+        if(level.onMenu && Gdx.input.isKeyPressed(Keys.ANY_KEY)){
+            level.onMenu = false;
+            level.selectLevel(1);
+        }
+        
         Player player = level.player;
         //Player movement
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){

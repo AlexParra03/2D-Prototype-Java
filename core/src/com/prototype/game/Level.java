@@ -36,6 +36,8 @@ public class Level implements RenderableObject {
     //A factory to create game objects
     private FactoryObject factory;
     
+    protected boolean onMenu = false;
+    
     
     /*
      * Initializes all components and loads level 1
@@ -47,7 +49,8 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.selectLevel(3);
+        this.loadGame();
+        this.selectLevel(0);
         
     }
     
@@ -71,6 +74,9 @@ public class Level implements RenderableObject {
             
             // ADD LEVELS TO MAPING HERE --------------
             switch(levelId){
+                case 0:
+                    buildLevelZero();
+                    break;
                 case 1:
                     buildLevelOne();
                     break;
@@ -80,6 +86,8 @@ public class Level implements RenderableObject {
                 case 3:
                 	buildLevelThree();
                 	break;
+                case 4:
+                    buildLevelFour();
             }
             
             // ---------------------------------
@@ -90,6 +98,14 @@ public class Level implements RenderableObject {
     }
     
 
+    private void buildLevelZero(){
+        this.onMenu = true;
+        this.player.x = -40;
+        this.player.y = -40;
+        this.map = new TileMap(0);
+        this.objects = new Array<GameObject>();
+        this.objects.add( new GameObject(new Texture( Gdx.files.internal("titlescreen.png")),  0, 0, 0, 0, this, false, null));
+    }
 
     /**
      * Constructs the first level
@@ -188,14 +204,14 @@ public class Level implements RenderableObject {
             @Override
             public void action(Level level) {
             	level.dialog.close();
-            	level.dialog.show("Wrong rock!");
+            	level.dialog.show("Wrong rock!, is your input right?");
             }
             
         };
         
         //TODO Change these doors to go to level 3 and 4
         this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 3));
-        this.objects.add(factory.createDoor("side", Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight()/2, 1));
+        this.objects.add(factory.createDoor("side", Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight()/2, 4));
         this.objects.add(factory.create("computer", 500, 100, computer));
         int rockX = 30;
         int rockY = 500;
@@ -210,6 +226,19 @@ public class Level implements RenderableObject {
         
     }
     
+    
+    private void buildLevelFour(){
+        this.player.x = Gdx.graphics.getWidth()/2 -16;
+        this.player.y = 0;
+        this.map = new TileMap(3);
+        this.objects = new Array<GameObject>();
+        dialog.show(" You picked the boolean algebra path... Good Luck! " +
+                " YOU have the circuit (!A)(!B)(C) = 1  . One of the switches has to be turn on in order to turn on the circuit."
+                + "Get close to the proper input (which is the box) and turn it on"
+                );
+        
+        
+    }
     /**
      * Constructs the third level
      */
