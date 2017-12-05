@@ -89,8 +89,16 @@ public class Level implements RenderableObject {
                 	break;
                 case 4:
                     buildLevelFour();
+                    break;
+                case 5:
+                    buildLevelFive();
+                    break;
+                case 6:
+                	buildLevelSix();
+                	break;        
                 case 7:
                 	buildLevelSeven();
+                	break;
             }
             
             // ---------------------------------
@@ -309,7 +317,112 @@ public class Level implements RenderableObject {
     	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 5));
     	
     }
+    private void buildLevelFive() {
+    	this.map = new TileMap(30, 20);
+    	for(int i = 0; i < this.map.map.length; i++) {
+    		for(int j = 0; j < this.map.map[0].length; j++) {
+    			this.map.map[i][j] = 18;
+    		}
+    	}
+    	this.objects = new Array<GameObject>();
+    	this.player.x = Gdx.graphics.getWidth()/2;
+    	this.player.y = 0;
+    	
+    	this.hints.setType("simple boolean algebra");
+    	
+    	Callback computer1 = new Callback() {
+
+			@Override
+			public void action(Level level) {
+				level.input.show("What is the value of 1?", new Callback() {
+
+					@Override
+					public void action(Level level) {
+						if(level.input.text.equals("1")) {
+							level.objects.add(level.factory.create("computer", 650, 355, new Callback() {
+
+								@Override
+								public void action(Level level) {
+									level.input.show("What is the value of 0?", new Callback() {
+
+										@Override
+										public void action(Level level) {
+											if(level.input.text.equals("0")) {
+												level.objects.add(level.factory.create("tree blue", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
+
+													@Override
+													public void action(Level level) {
+														level.dialog.show("You touch the tree and it dissapears, leaving a key.");
+														level.objects.removeIndex(3);
+														level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 5));
+														
+													}
+													
+												}));
+											}
+											
+										}
+										
+									});
+									
+								}
+								
+							}));
+						}
+					}
+					
+				});
+				
+			}
+    		
+    	};
+    	
+    	this.objects.add(this.factory.create("computer", 200, 300, computer1));
+    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 6));
+    }
     
+    public void buildLevelSix(){
+        this.map = new TileMap(30, 20);
+        for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 9;
+        	}
+        }
+        this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
+        this.player.y = 0;
+        
+        this.hints.setType("number conversion");
+        
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.input.show("Convert (110) base two to decimal", new Callback() {
+
+				@Override
+				public void action(Level level) {
+					if(level.input.text.equals("6")) {
+						level.objects.add(level.factory.createKey(300, 300, 6));
+						level.dialog.close();
+						level.dialog.show("The key has appeared! Grab it and unlock the door then walk through.");
+					}
+				}
+            	   
+               });
+            }
+            
+        };
+        
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 7));
+        this.objects.add(factory.create("computer", 200, 200, function1));
+        this.objects.add(factory.create("tree blue", 75, 450));
+        this.objects.add(factory.create("tree green", 700, 70));
+        this.objects.add(factory.create("tree green", 50, 700));
+        	//test
+    }
+    
+    //7
     public void buildLevelSeven(){
         this.map = new TileMap(30, 20);
         for(int i = 0; i < this.map.map.length; i++) {
@@ -343,7 +456,7 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 1));
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 8));
         this.objects.add(factory.create("computer", 200, 200, function1));
         this.objects.add(factory.create("rock", 45, 15));
         this.objects.add(factory.create("tree green", 135, 450));

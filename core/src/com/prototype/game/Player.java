@@ -44,7 +44,7 @@ public class Player implements RenderableObject {
     
     
     //Statistics
-    double speed = 2;
+    double speed = 4;
     
     //Game Object collisions
     Array<GameObject> objects;
