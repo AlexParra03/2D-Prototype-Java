@@ -99,6 +99,10 @@ public class Level implements RenderableObject {
                 case 7:
                 	buildLevelSeven();
                 	break;
+                case 8:
+                	buildLevelEight();
+                	break;
+                	
             }
             
             // ---------------------------------
@@ -465,6 +469,131 @@ public class Level implements RenderableObject {
         this.objects.add(factory.create("tree green", 350, 200));
         	//test
     }
+    
+  //testing level eight
+    private void buildLevelEight() {
+    	this.map = new TileMap(30, 20);
+        for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 11;
+        	}
+        }
+        this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
+        this.player.y = 0;
+    			dialog.show("Welcome to level 8. "
+            			+ "For help on binary addition, touch the blue tree. "
+            			+ "For help on binary multiplication, touch green tree.");
+    		
+    	
+    	this.hints.setType("number conversion");
+    			  
+    	Callback functionOne = new Callback(){
+            @Override
+            public void action(Level level) {
+            	
+                level.dialog.show("Binary addition is much like your normal everyday addition"
+                		+ "(decimal addition), except that it carries on a value of 2 "
+                		+        		"instead of a value of 10. For example: in decimal addition, if you add 8 + 2 you get ten, "
+                		+ "which you write as 10; "
+                		+ "in the sum this gives a digit 0 and a carry of 1. " 
+                		+"Final result: 11001");
+                
+            }
+            
+        };
+        Callback functionTwo = new Callback(){
+            @Override
+            public void action(Level level) {
+                level.dialog.show("Binary multiplication, Each step is the placement of an entire partial product, "
+                		+ "unlike in decimal, where each step is a single-digit multiplication "
+                		+ "(and possible addition of a carry). In the addition phase, "
+                		+ "the partial products are added using binary addition, "
+                		+ "and then the radix point is placed appropriately.");
+                
+            }
+            
+        };
+    	
+    	Callback computerOne = new Callback() {
+
+			@Override
+			public void action(Level level) {
+				level.input.show("(1 000 111)2+(111 0111)2"
+						+ " on the binary number is", new Callback() {
+
+					
+					
+		@Override
+		public void action(Level level) {
+		if(level.input.text.equals("10111110")) {
+			level.objects.add(level.factory.create("computer", 30, 200, new Callback() {
+
+		@Override
+		public void action(Level level) {
+		level.input.show("(100 0111) 2 * (111 0111) 2"
+						+ " on the binary number is ", new Callback() {
+
+						@Override
+		public void action(Level level) {
+		if(level.input.text.equals("10000100000001")) {
+		level.objects.add(level.factory.create("barrel", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
+					@Override
+		public void action(Level level) {
+		level.dialog.show("The barrel was hiding the key, take it.");
+		level.objects.removeIndex(7);
+		level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 8));
+														
+						}
+								}));
+											}
+											
+										}
+										
+									});
+									
+								}
+								
+							}));
+						}
+					}
+					
+				});
+				
+			}
+    		
+    	};
+    	
+    	this.objects.add(this.factory.create("computer", 30, 400, computerOne));
+    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 9));
+        objects.add( factory.create("rock", 100, 400)  );
+        objects.add( factory.create("rock", 120, 400)  );
+        objects.add( factory.create("rock", 140, 400)  );
+        objects.add( factory.create("rock", 160, 400)  );
+        objects.add( factory.create("rock", 180, 400)  );
+        objects.add( factory.create("rock", 200, 400)  );
+        objects.add( factory.create("rock", 220, 400)  );
+        objects.add( factory.create("rock", 240, 400)  );
+        objects.add( factory.create("rock", 260, 400)  );
+        objects.add( factory.create("rock", 280, 400)  );
+        objects.add( factory.create("rock", 300, 400)  );
+        objects.add( factory.create("rock", 320, 400)  );
+        objects.add( factory.create("rock", 340, 400)  );
+        objects.add( factory.create("rock", 360, 400)  );
+        objects.add( factory.create("rock", 380, 400)  );
+        objects.add( factory.create("rock", 400, 400)  );
+        objects.add( factory.create("rock", 420, 400)  );
+        objects.add( factory.create("rock", 440, 400)  );
+        objects.add( factory.create("rock", 460, 400)  );
+        objects.add( factory.create("rock", 480, 400)  );
+        objects.add( factory.create("rock", 500, 400)  );
+        objects.add( factory.create("tree blue", 90, 100, functionOne)  );
+        objects.add( factory.create("tree green", 400, 100, functionTwo)  );
+        objects.add( factory.create("box", 30, 300)  );
+        objects.add( factory.create("box", 500, 300)  );
+    //testing....
+    }
+    
     
     /**
      * Saves the current level to a JSON file to be loaded later
