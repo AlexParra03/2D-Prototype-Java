@@ -12,9 +12,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Key extends GameObject{
 	
 	//ID number for the key
-	private String id;
+	protected int id;
 	//Whether the key is an actual game object or for display only (for inventory)
 	private boolean inInventory;
+        // Level destination binded (non-negative if any)
+        protected int levelDestination = -1;
+        
+        protected boolean used = false;
 	
 	/**
 	 * Creates a key object
@@ -27,10 +31,9 @@ public class Key extends GameObject{
 	 * @param id The id of the key
 	 * @param display Whether the key is for display or for collecting
 	 */
-	public Key(Texture texture, int width, int height, int x, int y, Level level, String id, boolean collidable, boolean inInventory) {
-		super(texture, width, height, x, y, level, collidable);
-		this.id = id;
-		this.inInventory = inInventory;
+	public Key(Texture texture, int width, int height, int x, int y, Level level, boolean collidable, Callback callback) {
+		super(texture, width, height, x, y, level, collidable, callback);
+		this.inInventory = false;
 	}
 	
 	/**
@@ -46,16 +49,22 @@ public class Key extends GameObject{
 	 * @return The id
 	 */
 	public String getID() {
-		return id;
+		return ""+id;
 	}
 
 	
 	@Override
 	public void action() {
-		if(!inInventory) {
-			inInventory = true;
-			level.inventory.addKey(this);
-		}
+            if(!inInventory) {
+                    inInventory = true;
+                    level.inventory.addKey(this);
+                    level.saveGame();
+
+            }
+            if(callback != null){
+                callback.action(this.level);
+            }
+                
 	}
 	
 	@Override

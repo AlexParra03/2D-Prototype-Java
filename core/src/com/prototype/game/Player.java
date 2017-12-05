@@ -49,6 +49,9 @@ public class Player implements RenderableObject {
     //Game Object collisions
     Array<GameObject> objects;
     
+    /**
+     * Initialize animations, textures and positions
+     */
     public Player(){
     	
     	//Adding animation frames to each set
@@ -77,8 +80,9 @@ public class Player implements RenderableObject {
         this.x = 300;
         this.y = 300;
     }
-
-    // contains logic being called before rendering
+    /**
+    * contains logic being called before rendering
+    */
     void update(){
         this.normalizedMovement();
         this.updateCurrentFrame();
@@ -101,42 +105,48 @@ public class Player implements RenderableObject {
         }
     }
     
+    /**
+     * Handles collision with game objects in the level
+     */
     private void gameObjectsCollision(){
         int xOffset = 10;
         
         // Check for object collision
         if(objects != null){
-            for(GameObject object : objects){
-                //TODO implement collision
-                if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
-                    if((int)this.y > object.y && (int)this.y < object.y + object.height){
-                    	if(object.collidable) {
-                    		if(!this.colliding){
-                    			this.leftCollision = this.movingLeft;
-                    			this.rightCollision = this.movingRight;
-                    			this.upCollision = this.movingUp;
-                    			this.downCollision = this.movingDown;
-                    			object.action();
-                    			this.colliding = true;
-                    		}
-                    	} else {
-                    		object.action();
-                    		this.colliding = true;
-                    	}
+            for(int i=0; i<objects.size; i++){
+                GameObject object = objects.get(i);
+                if(object != null){
+                    if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width ){
+                        if((int)this.y > object.y && (int)this.y < object.y + object.height){
+                            if(object.collidable) {
+                                    if(!this.colliding){
+                                            this.leftCollision = this.movingLeft;
+                                            this.rightCollision = this.movingRight;
+                                            this.upCollision = this.movingUp;
+                                            this.downCollision = this.movingDown;
+                                            object.action();
+                                            this.colliding = true;
+                                    }
+                            } else {
+                                    object.action();
+                                    this.colliding = true;
+                            }
+                        }
                     }
                 }
-                
 
             }
             
             if(this.colliding){ // Checking collision with all objects
                 boolean stillColliding = false;
                 for(GameObject object : objects){
-                    // If player is colliding with object
-                     if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
-                         stillColliding = true;
-                         break;
-                     }
+                    if(object != null){
+                        // If player is colliding with object
+                         if( (int)this.x + xOffset > object.x && (int)this.x + xOffset < object.x + object.width && (int)this.y > object.y && (int)this.y < object.y + object.height ){
+                             stillColliding = true;
+                             break;
+                         }
+                    }
                 }
                 
 
@@ -164,6 +174,9 @@ public class Player implements RenderableObject {
 
     }
     
+    /**
+     * Handles animation frames
+     */
     private void updateCurrentFrame(){
     	if(this.movingDown || this.movingUp || this.movingLeft || this.movingRight){
     		this.animationTimer += (Gdx.graphics.getDeltaTime()* this.ANIMATION_SPEED) % 3;	
@@ -212,10 +225,18 @@ public class Player implements RenderableObject {
         this.y += dy;
     }
 
+    /**
+     * determine if the player is moving right
+     * @return if the player is moving right
+     */
     boolean isMovingRight() {
         return movingRight;
     }
 
+    /**
+     * Setting right movement and handling animations
+     * @param movingRight 
+     */
     void setMovingRight(boolean movingRight) {
         this.movingRight = !this.rightCollision && movingRight ;
         if(movingRight){
@@ -223,10 +244,18 @@ public class Player implements RenderableObject {
         }
     }
 
+    /**
+     * Determine if the player is moving left
+     * @return if the player is moving left
+     */
     boolean isMovingLeft() {
         return movingLeft;
     }
 
+    /**
+     * Setting left movement and handling animations
+     * @param movingLeft if the player is moving left
+     */
     void setMovingLeft(boolean movingLeft) {
         this.movingLeft = !this.leftCollision && movingLeft;
         if(movingLeft){
@@ -234,10 +263,18 @@ public class Player implements RenderableObject {
         }
     }
 
+    /**
+     * Determining if the player is moving up
+     * @return if the player is moving up
+     */
     boolean isMovingUp() {
         return movingUp;
     }
 
+    /**
+     * Setting up movement and animations
+     * @param movingUp if the player is moving up
+     */
     void setMovingUp(boolean movingUp) {
         this.movingUp = !this.upCollision && movingUp;
         if(movingUp){
@@ -245,10 +282,18 @@ public class Player implements RenderableObject {
         }
     }
 
+    /**
+     * Determine if the player is moving down
+     * @return if the player is moving down
+     */
     boolean isMovingDown() {
         return movingDown;
     }
 
+    /**
+     * Setting down movement and animation
+     * @param movingDown if the player is moving down
+     */
     void setMovingDown(boolean movingDown) {
         this.movingDown = !this.downCollision && movingDown;
         if(movingDown){
@@ -256,6 +301,10 @@ public class Player implements RenderableObject {
         }
     }
 
+    /**
+     * Objects are used to handle player collision and callbacks
+     * @param objects List of objects to be checked against for collision
+     */
     void setGameObjects(Array<GameObject> objects){
        this.objects = objects;
     }
