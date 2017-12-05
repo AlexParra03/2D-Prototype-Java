@@ -49,7 +49,8 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.loadGame();
+        //It seems like the reason it wasn't working is because the JSON file was corrupted, it works fine now just make sure you save it first
+        //this.loadGame();
         this.selectLevel(0);
         
     }
