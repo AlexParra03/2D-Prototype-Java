@@ -97,6 +97,8 @@ public class Level implements RenderableObject {
 
     private void buildLevelZero(){
         this.onMenu = true;
+        this.player.x = -40;
+        this.player.y = -40;
         this.map = new TileMap(0);
         this.objects = new Array<GameObject>();
         this.objects.add( new GameObject(new Texture( Gdx.files.internal("titlescreen.png")),  0, 0, 0, 0, this, false, null));
