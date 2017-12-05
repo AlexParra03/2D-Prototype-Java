@@ -89,6 +89,8 @@ public class Level implements RenderableObject {
                 	break;
                 case 4:
                     buildLevelFour();
+                case 7:
+                	buildLevelSeven();
             }
             
             // ---------------------------------
@@ -306,6 +308,49 @@ public class Level implements RenderableObject {
     	this.objects.add(this.factory.create("computer", 50, 500, computer1));
     	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 5));
     	
+    }
+    
+    public void buildLevelSeven(){
+        this.map = new TileMap(30, 20);
+        for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 11;
+        	}
+        }
+        this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
+        this.player.y = 0;
+        
+        this.hints.setType("number conversion");
+        
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.input.show("Convert (110) base two to decimal", new Callback() {
+
+				@Override
+				public void action(Level level) {
+					if(level.input.text.equals("6")) {
+						level.objects.add(level.factory.createKey(300, 300, 7));
+						level.dialog.close();
+						level.dialog.show("The key has appeared! Grab it and unlock the door then walk through.");
+					}
+				}
+            	   
+               });
+            }
+            
+        };
+        
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 1));
+        this.objects.add(factory.create("computer", 200, 200, function1));
+        this.objects.add(factory.create("rock", 45, 15));
+        this.objects.add(factory.create("tree green", 135, 450));
+        this.objects.add(factory.create("tree green", 450, 70));
+        this.objects.add(factory.create("tree green", 600, 250));
+        this.objects.add(factory.create("tree green", 350, 200));
+        	//test
     }
     
     /**

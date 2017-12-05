@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Hints for the puzzles in each level
+ * Hints for the puzzles in each level.
  * @author Group 3
- *
+ * 
  */
 public class Hint implements RenderableObject {
-
+	
 	//X value for the button
 	public final int X = 30;
 	//Y value for the button
