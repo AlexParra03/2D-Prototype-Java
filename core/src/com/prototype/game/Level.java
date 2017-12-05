@@ -67,6 +67,7 @@ public class Level implements RenderableObject {
                 	buildlevelSeven();
                 	break;
                 
+                
                 	
             }
             
@@ -400,6 +401,64 @@ public class Level implements RenderableObject {
         objects.add( factory.createDoor("up", 400, 400, 4) );
         
     }
+    /**
+     * Constructs the second level
+     */
+    /**
+     * Constructs the first level
+     */
+
+    public void buildLevelTwo(){
+        this.map = new TileMap(30, 20);
+        for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 9;
+        	}
+        }
+        this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
+        this.player.y = 0;
+        
+        this.hints.setType("number conversion operation");
+        
+        this.dialog.show("Welcome to the next level number conversion! ");
+        
+        Callback function1 = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.input.show("What is the value of(1 000 111) 2 + (111 0111) 2"
+               		+ "on binary number ", new Callback() {
+
+				@Override
+				public void action(Level level) {
+					if(level.input.text.equals("10111110")) {
+						level.objects.get(2).dispose();
+						level.objects.removeIndex(2);
+						level.objects.add(level.factory.createKey(300, 300, 1));
+						level.dialog.close();
+						level.dialog.show("The key has appeared! Grab it and unlock the door then walk through.");
+					}
+				}
+            	   
+               });
+               level.dialog.show("If your answer is correct, then the box will open to reveal a key.");
+            }
+            
+        };
+        
+
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 2));
+        this.objects.add(factory.create("computer", 200, 200, function1));
+        this.objects.add(factory.create("box", 300, 300));
+        this.objects.add(factory.create("rock", 45, 15));
+        this.objects.add(factory.create("tree blue", 135, 450));
+        this.objects.add(factory.create("tree blue", 450, 70));
+        this.objects.add(factory.create("tree blue", 500, 400));
+        this.objects.add(factory.create("rock", 350, 200));
+        this.objects.add(factory.create("rock", 600, 300));
+
+    }
+    
     
     public void buildLevelOne(){
         
@@ -432,37 +491,7 @@ public class Level implements RenderableObject {
 
     }
     
-    private void buildLevelTwo() {
-
-        this.map = new TileMap(30, 20);
-        this.objects = new Array<GameObject>();
-        
-        Callback function1 = new Callback(){
-            @Override
-            public void action(Level level) {
-               level.input.show("The next level shows answer of binary conversion");
-            }
-            
-        };
-        
-        Callback function2 = new Callback(){
-            @Override
-            public void action(Level level) {
-               level.player.x = 40;
-               level.player.y = 30;
-               level.dialog.show("Dialog");
-            }
-            
-        };
-        
-        this.objects.add(factory.createDoor("up", 500, 400, 3));
-        this.objects.add(factory.create("computer", 300, 100, function1));
-        this.objects.add(factory.create("key", 230, 200));
-        this.objects.add(factory.create("key", 400, 340));
-        this.map.map[5][5] = 3;
-        this.map.map[6][6] = 3;
-        
-    }
+   
     
     
 
