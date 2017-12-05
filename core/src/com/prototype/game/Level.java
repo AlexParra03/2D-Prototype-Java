@@ -36,6 +36,8 @@ public class Level implements RenderableObject {
     //A factory to create game objects
     private FactoryObject factory;
     
+    protected boolean onMenu = false;
+    
     
     /*
      * Initializes all components and loads level 1
@@ -47,7 +49,7 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.selectLevel(4);
+        this.selectLevel(0);
         
     }
     
@@ -71,6 +73,9 @@ public class Level implements RenderableObject {
             
             // ADD LEVELS TO MAPING HERE --------------
             switch(levelId){
+                case 0:
+                    buildLevelZero();
+                    break;
                 case 1:
                     buildLevelOne();
                     break;
@@ -90,6 +95,12 @@ public class Level implements RenderableObject {
     }
     
 
+    private void buildLevelZero(){
+        this.onMenu = true;
+        this.map = new TileMap(0);
+        this.objects = new Array<GameObject>();
+        this.objects.add( new GameObject(new Texture( Gdx.files.internal("titlescreen.png")),  0, 0, 0, 0, this, false, null));
+    }
 
     /**
      * Constructs the first level
