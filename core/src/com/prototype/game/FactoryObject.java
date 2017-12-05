@@ -129,9 +129,9 @@ public class FactoryObject {
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("tree blue")){
-            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 105, 115, x ,y, level, true, function);
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 90, 115, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){
-            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 105, 115, x ,y, level, true, function);
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 90, 115, x ,y, level, true, function);
         }else{
             return null;
         }
@@ -160,9 +160,9 @@ public class FactoryObject {
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("tree blue")){
-            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 115, 115, x ,y, level, true, function);
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 90, 115, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){
-            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 115, 115, x ,y, level, true, function);
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 90, 115, x ,y, level, true, function);
         }else{
             return null;
 

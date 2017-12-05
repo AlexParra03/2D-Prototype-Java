@@ -47,7 +47,7 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
-        this.selectLevel(2);
+        this.selectLevel(4);
         
     }
     
@@ -77,6 +77,8 @@ public class Level implements RenderableObject {
                 case 2:
                     buildLevelTwo();
                     break;
+                case 4:
+                    buildLevelFour();
        
             }
             
@@ -183,13 +185,13 @@ public class Level implements RenderableObject {
             @Override
             public void action(Level level) {
             	level.dialog.close();
-            	level.dialog.show("Wrong rock!");
+            	level.dialog.show("Wrong rock!, is your input right?");
             }
             
         };
         
         //TODO Change these doors to go to level 3 and 4
-        this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 1));
+        this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 4));
         this.objects.add(factory.createDoor("side", Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight()/2, 1));
         this.objects.add(factory.create("computer", 500, 100, computer));
         int rockX = 30;
@@ -205,6 +207,19 @@ public class Level implements RenderableObject {
         
     }
     
+    
+    private void buildLevelFour(){
+        this.player.x = Gdx.graphics.getWidth()/2 -16;
+        this.player.y = 0;
+        this.map = new TileMap(3);
+        this.objects = new Array<GameObject>();
+        dialog.show(" You picked the boolean algebra path... Good Luck! " +
+                " YOU have the circuit (!A)(!B)(C) = 1  . One of the switches has to be turn on in order to turn on the circuit."
+                + "Get close to the proper input (which is the box) and turn it on"
+                );
+        
+        
+    }
     /**
      * Saves the current level to a JSON file to be loaded later
      */
