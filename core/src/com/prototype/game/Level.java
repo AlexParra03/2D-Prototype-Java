@@ -31,10 +31,15 @@ public class Level implements RenderableObject {
     Inventory inventory;
     //The hints for each level
     Hint hints;
+    //The minimaps for each level
+    MiniMap maps;
     //The current level that the player is in
     protected static int currentLevel = -1;
     //A factory to create game objects
     private FactoryObject factory;
+    
+    //The save button
+    public SaveButton button;
     
     protected boolean onMenu = false;
     
@@ -49,9 +54,14 @@ public class Level implements RenderableObject {
         this.inventory = new Inventory();
         this.hints = new Hint(this);
         this.factory = new FactoryObject(this);
+        this.button = new SaveButton();
+        this.maps = new MiniMap(this);
         //It seems like the reason it wasn't working is because the JSON file was corrupted, it works fine now just make sure you save it first
-        //this.loadGame();
-        this.selectLevel(0);
+        try {
+        	this.loadGame();
+        } catch(Exception e) {
+        	this.selectLevel(0);
+        }
         
     }
     
@@ -74,6 +84,7 @@ public class Level implements RenderableObject {
             }
             
             // ADD LEVELS TO MAPING HERE --------------
+            //TODO Fix level order and add two more levels
             switch(levelId){
                 case 0:
                     buildLevelZero();
@@ -107,8 +118,13 @@ public class Level implements RenderableObject {
             
             // ---------------------------------
             Level.currentLevel = levelId;
+            if(levelId != 0) {
+            	this.maps.visible = true;
+            	this.hints.visible = true;
+            	this.button.visible = true;
+            }
             this.player.setGameObjects(this.objects);
-            //this.saveGame();
+            this.saveGame();
         }
     }
     
@@ -645,8 +661,10 @@ public class Level implements RenderableObject {
         }
         this.player.render(batch);
         this.inventory.render(batch);
+        this.maps.render(batch);
         this.dialog.render(batch);
         this.hints.render(batch);
+        this.button.render(batch);
         this.input.render(batch);
     }
 
@@ -662,6 +680,7 @@ public class Level implements RenderableObject {
         this.player.dispose();
         this.inventory.dispose();
         this.dialog.dispose();
+        this.button.dispose();
     }
 
 

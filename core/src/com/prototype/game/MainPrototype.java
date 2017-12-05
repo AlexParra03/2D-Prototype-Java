@@ -79,23 +79,31 @@ public class MainPrototype extends ApplicationAdapter {
 
         Dialog dialog = level.dialog;
          if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+        	 //Dialog "ok" button
             if(Gdx.input.getX() >= dialog.buttonX && Gdx.input.getX() <= (dialog.buttonX + dialog.buttonWidth)){
                 if(Gdx.input.getY() >= (Gdx.graphics.getHeight()- dialog.buttonY-dialog.buttonHeight) && Gdx.input.getY() <= (Gdx.graphics.getHeight()-dialog.buttonY)){
                     dialog.close();
                 }
             }
+            
+            //Hint button 
+            if(level.hints.visible && Gdx.input.getX() >= (level.hints.X - level.hints.TOTAL_RADIUS) && Gdx.input.getX() <= (level.hints.X + level.hints.TOTAL_RADIUS)){
+                if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.hints.Y - level.hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.hints.Y + level.hints.TOTAL_RADIUS)){
+               	level.hints.show();
+                }
+            }
+            
+            //Save button
+            if(level.button.visible && Gdx.input.getX() >= level.button.X && Gdx.input.getX() <= (level.button.X + level.button.WIDTH)){
+                if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.button.Y - level.button.HEIGHT) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.button.Y)){
+               	level.saveGame();
+               	level.dialog.close();
+               	level.dialog.show("Game Saved!");
+                }
+            }
 
          }
          
-         //Input processing for hint button
-         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-             if(Gdx.input.getX() >= (level.hints.X - level.hints.TOTAL_RADIUS) && Gdx.input.getX() <= (level.hints.X + level.hints.TOTAL_RADIUS)){
-                 if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.hints.Y - level.hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.hints.Y + level.hints.TOTAL_RADIUS)){
-                	level.hints.show();
-                 }
-             }
-
-          }
          
         
         if(level.input.visible){

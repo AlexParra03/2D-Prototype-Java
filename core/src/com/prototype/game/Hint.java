@@ -30,6 +30,8 @@ public class Hint implements RenderableObject {
 	private Level level;
 	//The hint type
 	private String type;
+	//Whether the button is visible or not
+	public boolean visible;
 	
 	/**
 	 * Creates a Hint object
@@ -37,6 +39,7 @@ public class Hint implements RenderableObject {
 	 */
 	public Hint(Level level) {
 		this.level = level;
+		this.visible = false;
 		icon = new Texture(Gdx.files.internal("icons/Question Mark.png"));
 		circle = new ShapeRenderer();
 		hints = new Array<String>(10);
@@ -57,15 +60,6 @@ public class Hint implements RenderableObject {
 	 */
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	/**
-	 * Sets the hint for the given level to the given string
-	 * @param levelNum The level number for the hint
-	 * @param newHint The hint to add to the level
-	 */
-	public void setHint(int levelNum, String newHint) {
-		hints.set(levelNum-1, newHint);
 	}
 	
 	/**
@@ -95,15 +89,17 @@ public class Hint implements RenderableObject {
 	 * Renders the hint button on the screen
 	 */
 	public void render(SpriteBatch batch) {
-		batch.end();
-		circle.begin(ShapeRenderer.ShapeType.Filled);
-		circle.setColor(Color.BLACK);
-		circle.circle(X, Y, 24);
-		circle.setColor(Color.BLUE);
-		circle.circle(X - 1, Y, 20);
-		circle.end();
-		batch.begin();
-		batch.draw(icon, X - 16, Y - 16);
+		if(visible) {
+			batch.end();
+			circle.begin(ShapeRenderer.ShapeType.Filled);
+			circle.setColor(Color.BLACK);
+			circle.circle(X, Y, 24);
+			circle.setColor(Color.BLUE);
+			circle.circle(X - 1, Y, 20);
+			circle.end();
+			batch.begin();
+			batch.draw(icon, X - 16, Y - 16);
+		}
 	}
 
 	@Override
