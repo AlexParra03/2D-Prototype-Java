@@ -535,24 +535,24 @@ public class Level implements RenderableObject {
 
 			@Override
 			public void action(Level level) {
-				level.input.show("(1 000 111)2+(111 0111)2"
+				level.input.show("(1 010)2+(1 100)2"
 						+ " on the binary number is", new Callback() {
 
 					
 					
 		@Override
 		public void action(Level level) {
-		if(level.input.text.equals("10111110")) {
+		if(level.input.text.equals("10110")) {
 			level.objects.add(level.factory.create("computer", 30, 200, new Callback() {
 
 		@Override
 		public void action(Level level) {
-		level.input.show("(100 0111) 2 * (111 0111) 2"
+		level.input.show("(1 010) 2 * (1 100) 2"
 						+ " on the binary number is ", new Callback() {
 
 						@Override
 		public void action(Level level) {
-		if(level.input.text.equals("10000100000001")) {
+		if(level.input.text.equals("1111000")) {
 		level.objects.add(level.factory.create("barrel", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
 					@Override
 		public void action(Level level) {
