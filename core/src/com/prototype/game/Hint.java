@@ -52,6 +52,17 @@ public class Hint implements RenderableObject {
 		hints.add("Simple Boolean Algebra: When working with boolean values, you only have the digits 0 and 1. "
 				+ "Some properties that occur in decimal mathematics is similar to what occurs in boolean algebra. "
 				+ "ADDING: {0+1=1, 1+0=1, 0+0=0, 1+1=1} MULTIPLICATION: {0*1=0, 1*0=0, 0*0=0, 1+1=1}");
+		hints.add("Adding Two Binary Numbers: "
+				+ "Working in base 10, you add one column at a time and if the numbers in the column add up to at least ten, then you carry the 1 to the next column "
+				+ "and leave the ones digit in the first column. "
+				+ "The process is the same in base 2 except you carry over when you add up to atleast 2. "
+				+ "EX: (11) + (11) STEP 1: Add first column 1 + 1 = 2 = (10) so carry the 1 to the next column and put the 0 as the answer for the first column. "
+				+ "STEP 2: Add the second column, plus that carried one. 1 + 1 + 1 = 3 = 11 No more columns so this number is written down making the final answer 110.");
+		hints.add("Boolean Algebra Identities: "
+				+ "Call x a boolean value of 0 or 1 and ~x the opposite value. "
+				+ "EX: if x = 0, then ~x = 1. "
+				+ "ADDITIVE IDENTITIES: x+0=x, x+1=1, x+x=x,x+~x=1 "
+				+ "MULTIPLICATIVE IDENTITIES: x*0=0, x*1=x, x*x=x, x*~x=0");
 	}
 	
 	/**
@@ -71,6 +82,10 @@ public class Hint implements RenderableObject {
 			return hints.get(0);
 		} else if(type.equals("simple boolean algebra")) {
 			return hints.get(1);
+		} else if(type.equals("binary addition")) {
+			return hints.get(2);
+		} else if(type.equals("boolean identities")) {
+			return hints.get(3);
 		} else {
 			return "";
 		}
