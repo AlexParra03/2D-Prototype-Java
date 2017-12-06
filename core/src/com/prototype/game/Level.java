@@ -633,6 +633,7 @@ public class Level implements RenderableObject {
 		public void action(Level level) {
 		if(level.input.text.equals("X")) {
 			level.objects.add(level.factory.create("box", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
+
 					@Override
 		public void action(Level level) {
 		level.dialog.show("The box was hiding the key, take it.");
