@@ -57,12 +57,9 @@ public class Level implements RenderableObject {
         this.button = new SaveButton();
         this.maps = new MiniMap(this);
         //It seems like the reason it wasn't working is because the JSON file was corrupted, it works fine now just make sure you save it first
-        try {
-        	//this.loadGame();
-        	this.selectLevel(8);
-        } catch(Exception e) {
-        	this.selectLevel(0);
-        }
+
+        this.selectLevel(0);
+
         
     }
     
@@ -135,9 +132,10 @@ public class Level implements RenderableObject {
             	this.maps.visible = true;
             	this.hints.visible = true;
             	this.button.visible = true;
+                this.saveGame();
             }
             this.player.setGameObjects(this.objects);
-            this.saveGame();
+            
         }
     }
     
@@ -148,7 +146,8 @@ public class Level implements RenderableObject {
         this.player.y = -40;
         this.map = new TileMap(0);
         this.objects = new Array<GameObject>();
-        this.objects.add( new GameObject(new Texture( Gdx.files.internal("titlescreen.png")),  0, 0, 0, 0, this, false, null));
+        this.objects.add( new GameObject(new Texture( Gdx.files.internal("loadscreen.png")),  0, 0, 0, 0, this, false, null));
+        
     }
 
     /**

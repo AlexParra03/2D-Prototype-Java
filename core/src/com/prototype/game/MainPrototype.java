@@ -46,9 +46,24 @@ public class MainPrototype extends ApplicationAdapter {
     
     void handleInput(){
 
-        if(level.onMenu && Gdx.input.isKeyPressed(Keys.ANY_KEY)){
-            level.onMenu = false;
-            level.selectLevel(1);
+        if(level.onMenu && Gdx.input.isButtonPressed(Input.Buttons.LEFT) ){
+            if(Gdx.input.getX() > 350 && Gdx.input.getX() < 470){
+                
+                if(Gdx.input.getY() < 465 && Gdx.input.getY() > 430){
+                    level.selectLevel(1);
+                    level.onMenu = false;
+                }else if(Gdx.input.getY() > 475 && Gdx.input.getY() < 500){
+                    try{
+                        level.onMenu = false;
+                        level.loadGame();
+                    }catch(Exception e ){
+                        level.onMenu = false;
+                        level.selectLevel(1);
+                        
+                    }
+                }
+            }
+            
         }
         
         Player player = level.player;
