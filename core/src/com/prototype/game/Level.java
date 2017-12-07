@@ -557,7 +557,7 @@ public class Level implements RenderableObject {
         } else {
         	this.player.x = Gdx.graphics.getWidth()/2 - 16;
         	this.player.y = 0;
-        	this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 3));
+        	this.objects.add(factory.createDoor("side", -28, Gdx.graphics.getHeight()/2, 6));
         }
         this.hints.setType("number conversion");
         
