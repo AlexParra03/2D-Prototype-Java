@@ -27,11 +27,18 @@ public class Dialog implements RenderableObject {
     private static final int WIDTH = 780;
     private static final int HEIGHT = 150;
     
+    /**
+     * Initializes batches
+     */
     public Dialog(){
         boxes.setColor(50, 50, 50, 1);
         font.setColor(0,0,0,1);
     }
     
+    /**
+     * Displays a message in the dialog box
+     * @param msg Message to be displayed
+     */
     public void show(String msg){
         if(!this.visible){
             msg = " " + msg + " .";
@@ -54,6 +61,9 @@ public class Dialog implements RenderableObject {
         }
     }
     
+    /**
+     * Closes the dialog box and clears text
+     */
     public void close(){
         this.visible = false;
         this.textLines.clear();

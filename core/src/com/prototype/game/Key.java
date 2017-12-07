@@ -58,6 +58,10 @@ public class Key extends GameObject{
             if(!inInventory) {
                     inInventory = true;
                     level.inventory.addKey(this);
+<<<<<<< HEAD
+=======
+                    level.saveGame();
+>>>>>>> master
 
             }
             if(callback != null){

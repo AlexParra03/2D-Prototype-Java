@@ -3,6 +3,7 @@ package com.prototype.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -45,6 +46,26 @@ public class MainPrototype extends ApplicationAdapter {
     
     void handleInput(){
 
+        if(level.onMenu && Gdx.input.isButtonPressed(Input.Buttons.LEFT) ){
+            if(Gdx.input.getX() > 350 && Gdx.input.getX() < 470){
+                
+                if(Gdx.input.getY() < 465 && Gdx.input.getY() > 430){
+                    level.selectLevel(1);
+                    level.onMenu = false;
+                }else if(Gdx.input.getY() > 475 && Gdx.input.getY() < 500){
+                    try{
+                        level.onMenu = false;
+                        level.loadGame();
+                    }catch(Exception e ){
+                        level.onMenu = false;
+                        level.selectLevel(1);
+                        
+                    }
+                }
+            }
+            
+        }
+        
         Player player = level.player;
         //Player movement
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
@@ -73,13 +94,31 @@ public class MainPrototype extends ApplicationAdapter {
 
         Dialog dialog = level.dialog;
          if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+        	 //Dialog "ok" button
             if(Gdx.input.getX() >= dialog.buttonX && Gdx.input.getX() <= (dialog.buttonX + dialog.buttonWidth)){
                 if(Gdx.input.getY() >= (Gdx.graphics.getHeight()- dialog.buttonY-dialog.buttonHeight) && Gdx.input.getY() <= (Gdx.graphics.getHeight()-dialog.buttonY)){
                     dialog.close();
                 }
             }
+            
+            //Hint button 
+            if(level.hints.visible && Gdx.input.getX() >= (level.hints.X - level.hints.TOTAL_RADIUS) && Gdx.input.getX() <= (level.hints.X + level.hints.TOTAL_RADIUS)){
+                if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.hints.Y - level.hints.TOTAL_RADIUS) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.hints.Y + level.hints.TOTAL_RADIUS)){
+               	level.hints.show();
+                }
+            }
+            
+            //Save button
+            if(level.button.visible && Gdx.input.getX() >= level.button.X && Gdx.input.getX() <= (level.button.X + level.button.WIDTH)){
+                if(Gdx.input.getY() >= (Gdx.graphics.getHeight() - level.button.Y - level.button.HEIGHT) && Gdx.input.getY() <= (Gdx.graphics.getHeight() - level.button.Y)){
+               	level.saveGame();
+               	level.dialog.close();
+               	level.dialog.show("Game Saved!");
+                }
+            }
 
          }
+         
          
         
         if(level.input.visible){

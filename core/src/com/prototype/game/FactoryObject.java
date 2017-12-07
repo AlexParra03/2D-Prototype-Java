@@ -57,7 +57,11 @@ public class FactoryObject {
         if(direction.equals("up")){
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object7.png")), 64, 64, x, y, level, true, null, levelDestination);
         }else if(direction.equals("side")){
+<<<<<<< HEAD
             return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 20, 64, x, y, level, true, null, levelDestination);
+=======
+            return new DoorObject(new Texture(  Gdx.files.internal("gameObjects/object8.png")), 40, 64, x, y, level, true, null, levelDestination);
+>>>>>>> master
         }else{
             return null;
         }
@@ -129,9 +133,15 @@ public class FactoryObject {
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("tree blue")){
+<<<<<<< HEAD
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 105, 115, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 105, 115, x ,y, level, true, function);
+=======
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 90, 115, x ,y, level, true, function);
+        }else if(objectType.equals("tree green")){
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 90, 115, x ,y, level, true, function);
+>>>>>>> master
         }else{
             return null;
         }
@@ -160,9 +170,15 @@ public class FactoryObject {
         }else if(objectType.equals("barrel")){
             return new BarrelObject(new Texture(  Gdx.files.internal("gameObjects/object11.png")), 40, 40, x, y, level, true, function);
         }else if(objectType.equals("tree blue")){
+<<<<<<< HEAD
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 115, 115, x ,y, level, true, function);
         }else if(objectType.equals("tree green")){
             return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 115, 115, x ,y, level, true, function);
+=======
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object0.png")), 90, 115, x ,y, level, true, function);
+        }else if(objectType.equals("tree green")){
+            return new TreeObject(new Texture(  Gdx.files.internal("gameObjects/object1.png")), 90, 115, x ,y, level, true, function);
+>>>>>>> master
         }else{
             return null;
 
