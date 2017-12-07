@@ -63,6 +63,8 @@ public class Hint implements RenderableObject {
 				+ "EX: if x = 0, then ~x = 1. "
 				+ "ADDITIVE IDENTITIES: x+0=x, x+1=1, x+x=x,x+~x=1 "
 				+ "MULTIPLICATIVE IDENTITIES: x*0=0, x*1=x, x*x=x, x*~x=0");
+		hints.add("Boolean Circuit: An AND gate requires two inputs of 1 to output 1. "
+				+ "An OR gate requires at least one output of 1 to output 1. Let the boxes be AND gates and the rocks be OR gates to solve this.");
 	}
 	
 	/**
@@ -86,6 +88,8 @@ public class Hint implements RenderableObject {
 			return hints.get(2);
 		} else if(type.equals("boolean identities")) {
 			return hints.get(3);
+		}else if(type.equals("final level")) {
+			return hints.get(4);
 		} else {
 			return "";
 		}

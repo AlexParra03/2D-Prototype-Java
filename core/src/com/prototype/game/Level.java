@@ -56,9 +56,8 @@ public class Level implements RenderableObject {
         this.factory = new FactoryObject(this);
         this.button = new SaveButton();
         this.maps = new MiniMap(this);
-        //It seems like the reason it wasn't working is because the JSON file was corrupted, it works fine now just make sure you save it first
 
-        this.selectLevel(0);
+        this.selectLevel(10);
 
         
     }
@@ -123,6 +122,12 @@ public class Level implements RenderableObject {
                 case 8:
                 	buildLevelEight();
                 	break;
+                case 9:
+                	buildLevelNine();
+                	break;
+                case 10:
+                	buildLevelTen();
+                	break;
                 	
             }
             
@@ -140,6 +145,9 @@ public class Level implements RenderableObject {
     }
     
 
+    /**
+     * Constructs the title screen
+     */
     private void buildLevelZero(){
         this.onMenu = true;
         this.player.x = -40;
@@ -154,7 +162,7 @@ public class Level implements RenderableObject {
      * Constructs the first level
      */
 
-    public void buildLevelOne(){
+    private void buildLevelOne(){
         this.map = new TileMap(30, 20);
         for(int i = 0; i < this.map.map.length; i++) {
         	for(int j = 0; j < this.map.map[0].length; j++) {
@@ -340,7 +348,7 @@ public class Level implements RenderableObject {
     /**
      * Constructs level four
      */
-    public void buildLevelFour(){
+    private void buildLevelFour(){
         this.map = new TileMap(30, 20);
         for(int i = 0; i < this.map.map.length; i++) {
         	for(int j = 0; j < this.map.map[0].length; j++) {
@@ -459,7 +467,7 @@ public class Level implements RenderableObject {
      * Constructs level six
      * @param direction The direction the player came from: true = level 5, false = level 7
      */
-    public void buildLevelSix(boolean direction) {
+    private void buildLevelSix(boolean direction) {
     	this.map = new TileMap(30, 20);
     	for(int i = 0; i < this.map.map.length; i++) {
     		for(int j = 0; j < this.map.map[0].length; j++) {
@@ -543,7 +551,7 @@ public class Level implements RenderableObject {
      * Constructs level seven
      * @param direction The direction the player came from: false = level 4, true = level 6
      */
-    public void buildLevelSeven(boolean direction){
+    private void buildLevelSeven(boolean direction){
         this.map = new TileMap(30, 20);
         for(int i = 0; i < this.map.map.length; i++) {
         	for(int j = 0; j < this.map.map[0].length; j++) {
@@ -581,7 +589,7 @@ public class Level implements RenderableObject {
             
         };
         
-        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 8));
+        this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 9));
         this.objects.add(factory.create("computer", 200, 200, function1));
         this.objects.add(factory.create("rock", 45, 15));
         this.objects.add(factory.create("tree green", 135, 450));
@@ -660,7 +668,7 @@ public class Level implements RenderableObject {
     	};
     	
     	this.objects.add(this.factory.create("computer", 30, 400, computerOne));
-    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 9));
+    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 10));
         objects.add( factory.create("rock", 100, 400)  );
         objects.add( factory.create("rock", 120, 400)  );
         objects.add( factory.create("rock", 140, 400)  );
@@ -686,6 +694,143 @@ public class Level implements RenderableObject {
         objects.add( factory.create("tree green", 400, 100)  );
         objects.add( factory.create("box", 30, 300)  );
         objects.add( factory.create("box", 500, 300)  );
+    }
+    
+    /**
+     * Constructs level 9
+     */
+    private void buildLevelNine() {
+    	this.map = new TileMap(30, 20);
+    	for(int i = 0; i < this.map.map.length; i++) {
+        	for(int j = 0; j < this.map.map[0].length; j++) {
+        		this.map.map[i][j] = 15;
+        	}
+        }
+    	this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 - 16;
+        this.player.y = 0;
+    			dialog.show("This will be your final challenge on the path of number conversion. "
+    					+ "Complete this challenge and move on to the final challenge of the maze.");
+    		
+    	
+    	this.hints.setType("number conversion");
+    			  
+    	
+    	Callback computerOne = new Callback() {
+
+			@Override
+			public void action(Level level) {
+				level.input.show("Convert (1111111) to decimal.", new Callback() {
+
+					
+					
+		@Override
+		public void action(Level level) {
+		if(level.input.text.equals("127")) {
+			level.objects.add(level.factory.create("computer", 30, 200, new Callback() {
+
+		@Override
+		public void action(Level level) {
+		level.input.show("Convert (10101010) to decimal.", new Callback() {
+
+						@Override
+		public void action(Level level) {
+		if(level.input.text.equals("170")) {
+			level.objects.add(level.factory.create("box", Gdx.graphics.getWidth()/2 - 64, Gdx.graphics.getHeight()/2, new Callback() {
+
+					@Override
+		public void action(Level level) {
+		level.dialog.show("The box was hiding the key, take it.");
+		level.objects.removeIndex(level.objects.size - 1);
+		level.objects.add(level.factory.createKey(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 8));
+														
+						}
+								}));
+											}
+											
+										}
+										
+									});
+									
+								}
+								
+							}));
+						}
+					}
+					
+				});
+				
+			}
+    		
+    	};
+    	
+    	this.objects.add(this.factory.create("computer", 30, 400, computerOne));
+    	this.objects.add(factory.createDoor("up", Gdx.graphics.getWidth()/2 - 32, Gdx.graphics.getHeight()-64, 10));
+        objects.add( factory.create("rock", 100, 400)  );
+        objects.add( factory.create("rock", 120, 400)  );
+        objects.add( factory.create("rock", 140, 400)  );
+        objects.add( factory.create("rock", 160, 400)  );
+        objects.add( factory.create("rock", 180, 400)  );
+        objects.add( factory.create("rock", 200, 400)  );
+        objects.add( factory.create("rock", 220, 400)  );
+        objects.add( factory.create("rock", 240, 400)  );
+        objects.add( factory.create("rock", 260, 400)  );
+        objects.add( factory.create("rock", 280, 400)  );
+        objects.add( factory.create("rock", 300, 400)  );
+        objects.add( factory.create("rock", 320, 400)  );
+        objects.add( factory.create("rock", 340, 400)  );
+        objects.add( factory.create("rock", 360, 400)  );
+        objects.add( factory.create("rock", 380, 400)  );
+        objects.add( factory.create("rock", 400, 400)  );
+        objects.add( factory.create("rock", 420, 400)  );
+        objects.add( factory.create("rock", 440, 400)  );
+        objects.add( factory.create("rock", 460, 400)  );
+        objects.add( factory.create("rock", 480, 400)  );
+        objects.add( factory.create("rock", 500, 400)  );
+        objects.add( factory.create("tree blue", 90, 100)  );
+        objects.add( factory.create("tree green", 400, 100)  );
+        objects.add( factory.create("box", 30, 300)  );
+        objects.add( factory.create("box", 500, 300)  );
+    	
+    }
+    
+    /**
+     * Constructs level 10
+     */
+    private void buildLevelTen() {
+    	this.map = new TileMap(30, 20);
+        this.objects = new Array<GameObject>();
+        this.player.x = Gdx.graphics.getWidth()/2 -16;
+        this.player.y = 0;
+        
+        this.hints.setType("final level");
+        
+        Callback computer = new Callback(){
+            @Override
+            public void action(Level level) {
+               level.input.show("Which inputs need to be turned on the for the circuit to be 1.", new Callback(){
+                   @Override
+                   public void action(Level level) {
+                   	if(level.input.text.equals("1100") || level.input.text.equals("0011")) {
+                   		level.dialog.close();
+                       	level.dialog.show("Congradulations you won!!!");
+                   	}
+                   
+                   };
+               });
+               level.dialog.show("Enter the answer in the form: input1input2input3input4 where each input is a 0 or a 1.");
+            }
+            
+        };
+        
+        
+        
+        this.objects.add(factory.create("computer", 300, 100, computer));
+        this.objects.add(factory.create("box", 200, 200));
+        this.objects.add(factory.create("box", 400, 200));
+        this.objects.add(factory.create("rock", 320, 300));
+        
+    	
     }
     
     
