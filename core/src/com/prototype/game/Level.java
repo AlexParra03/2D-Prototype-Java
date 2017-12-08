@@ -57,7 +57,7 @@ public class Level implements RenderableObject {
         this.button = new SaveButton();
         this.maps = new MiniMap(this);
 
-        this.selectLevel(10);
+        this.selectLevel(0);
 
         
     }
@@ -808,12 +808,14 @@ public class Level implements RenderableObject {
         Callback computer = new Callback(){
             @Override
             public void action(Level level) {
-               level.input.show("Which inputs need to be turned on the for the circuit to be 1.", new Callback(){
+               level.input.show("Which inputs need to be turned (A and B)or(C and D).", new Callback(){
                    @Override
                    public void action(Level level) {
                    	if(level.input.text.equals("1100") || level.input.text.equals("0011")) {
-                   		level.dialog.close();
-                       	level.dialog.show("Congradulations you won!!!");
+                            level.dialog.close();
+                            level.dialog.show("CONGRATULATION YOU SOLVED THE MAZE!!!");
+                            level.player.speed *= 2;
+                            
                    	}
                    
                    };
@@ -825,7 +827,7 @@ public class Level implements RenderableObject {
         
         
         
-        this.objects.add(factory.create("computer", 300, 100, computer));
+        this.objects.add(factory.create("computer", 350, 150, computer));
         this.objects.add(factory.create("box", 200, 200));
         this.objects.add(factory.create("box", 400, 200));
         this.objects.add(factory.create("rock", 320, 300));
